@@ -13,7 +13,7 @@ builddir="$srcdir/$pkgname/build"
 
 prepare() {
 	cd "$srcdir"
-	git clone https://github.com/gregvirgin/libcork
+	git clone "$url"
 	cd "$pkgname"
 	git checkout $pkgver
 	mkdir build
