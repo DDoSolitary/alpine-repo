@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for i in $(find -mindepth 1 -maxdepth 1 -type d ! -path "./.git"); do
+for i in $(cat build-list); do
 	cd "$i"
 	abuild -R
 	cd ..
