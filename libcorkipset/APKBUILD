@@ -14,6 +14,14 @@ builddir="$srcdir/$pkgname-debian-1.1.1-20150311-8_exp1/build"
 
 prepare() {
 	mkdir "$builddir"
+	cd "$builddir/.."
+	for p in debian/patches/*.patch; do
+		patch -p1 -i "$p"
+	done
+	sed -e 's%#include <ipset%#include <libcorkipset%' \
+		-e 's%#include "ipset%#include "libcorkipset%' \
+		-i include/ipset/*.h */*/*/*.c */*/*/*.c.in */*/*.c */*.c
+	mv include/{,libcork}ipset
 }
 
 build() {
