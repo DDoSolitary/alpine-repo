@@ -1,6 +1,6 @@
 #!/bin/bash
 
-adduser -D -u $1 builder
+adduser -D builder
 addgroup builder abuild
 
 cat >> /etc/abuild.conf <<- EOF
