@@ -6,7 +6,6 @@ pkgdesc="lightweight secured SOCKS5 proxy"
 url="https://github.com/shadowsocks/shadowsocks-libev"
 arch="x86_64"
 license="GPLv3"
-depends=""
 makedepends="autoconf automake libtool linux-headers
 	mbedtls-dev libsodium-dev pcre-dev libev-dev c-ares-dev
 	libbloom-dev libcork-dev libcorkipset-dev
