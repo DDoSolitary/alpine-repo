@@ -2,6 +2,6 @@
 
 for i in $(cat build-list); do
 	cd "$i"
-	abuild -ri
+	abuild -r
 	cd ..
 done
