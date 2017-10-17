@@ -1,4 +1,4 @@
 #!/bin/sh
 
-adduser builder
+adduser -D builder
 addgroup builder abuild
