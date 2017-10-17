@@ -9,7 +9,7 @@ license="GPLv3"
 depends=""
 makedepends="autoconf automake libtool linux-headers
 	mbedtls-dev libsodium-dev pcre-dev libev-dev c-ares-dev
-	libbloom-dev libcork-dev ipset-dev
+	libbloom-dev libcork-dev libcorkipset-dev
 	asciidoc xmlto"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
