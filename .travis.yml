@@ -5,6 +5,6 @@ install:
   - chmod +x alpine-chroot-install
   - sudo ./alpine-chroot-install -b edge -p "alpine-sdk bash"
   - echo $PRIVKEY | base64 -d > privkey
-  - /alpine/enter-chroot ./init.sh
+  - /alpine/enter-chroot ./init.sh $UID
 script:
   - /alpine/enter-chroot -u builder ./build.sh
