@@ -21,7 +21,7 @@ prepare() {
 	sed -e 's%#include <ipset%#include <libcorkipset%' \
 		-e 's%#include "ipset%#include "libcorkipset%' \
 		-i include/ipset/*.h */*/*/*.c */*/*/*.c.in */*/*.c */*.c
-	mv include/{,libcork}ipset
+	mv include/ipset include/libcorkipset
 }
 
 build() {
