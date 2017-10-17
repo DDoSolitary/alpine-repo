@@ -4,5 +4,6 @@ install:
   - wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/alpine-chroot-install
   - chmod +x alpine-chroot-install
   - sudo ./alpine-chroot-install -b edge -p alpine-sdk
+  - /alpine/enter-chroot ./init.sh
 script:
-  - /alpine/enter-chroot ./build.sh
+  - /alpine/enter-chroot -u builder ./build.sh
