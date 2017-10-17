@@ -7,3 +7,7 @@ cat >> /etc/abuild.conf <<- EOF
 	PACKAGER="DDoSolitary <DDoSolitary@gmail.com>"
 	PACKAGER_PRIVKEY="$PWD/privkey"
 EOF
+
+for i in $(cat build-list); do
+	chmod 777 "$i"
+done
