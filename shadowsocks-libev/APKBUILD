@@ -1,0 +1,33 @@
+# Maintainer: DDoSolitary <DDoSolitary@gmail.com>
+pkgname=shadowsocks-libev
+pkgver=3.1.0
+pkgrel=0
+pkgdesc="lightweight secured SOCKS5 proxy"
+url="https://github.com/shadowsocks/shadowsocks-libev"
+arch="x86_64"
+license="GPLv3"
+depends=""
+makedepends="autoconf automake libtool linux-headers
+	mbedtls-dev libsodium-dev pcre-dev libev-dev c-ares-dev
+	libbloom-dev libcork-dev ipset-dev
+	asciidoc xmlto"
+subpackages="$pkgname-dev $pkgname-doc"
+source="shadowsocks-libev-$pkgver.tar.gz::https://github.com/shadowsocks/shadowsocks-libev/archive/v$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	touch libbloom/Makefile.in
+	touch libcork/Makefile.in
+	touch libipset/Makefile.in
+	./autogen.sh
+	./configure --prefix=/usr --enable-system-shared-lib
+	make
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="e2a8686a60b2fa782e2f036963d8789275f9d3faee541984f54069bf6e0d1a7cfee218b63cc0600e29b7efcef6872d4ad45363b69a3360e9958143b82e33fd4e  shadowsocks-libev-3.1.0.tar.gz"
