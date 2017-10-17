@@ -3,6 +3,6 @@ sudo: required
 install:
   - wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/alpine-chroot-install
   - chmod +x alpine-chroot-install
-  - ./alpine-chroot-install -b edge -p alpine-sdk
+  - sudo ./alpine-chroot-install -b edge -p alpine-sdk
 script:
   - /alpine/enter-chroot ./build.sh
