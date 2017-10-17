@@ -4,7 +4,7 @@ install:
   - wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/alpine-chroot-install
   - chmod +x alpine-chroot-install
   - sudo ./alpine-chroot-install -b edge -p "alpine-sdk bash"
-  - echo $PRIVKEY | base64 -d > privkey
+  - echo $PRIVKEY | base64 -d > DDoSolitary@gmail.com-00000000.rsa
   - /alpine/enter-chroot ./init.sh
 script:
   - /alpine/enter-chroot -u builder ./build.sh
