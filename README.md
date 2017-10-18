@@ -1,5 +1,7 @@
 # alpine-repo
 
+[![Build Status](https://travis-ci.org/DDoSolitary/alpine-repo.svg)](https://travis-ci.org/DDoSolitary/alpine-repo)
+
 This is an unofficial repository for Alpine Linux.
 
 # How to use
