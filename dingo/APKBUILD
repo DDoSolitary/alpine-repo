@@ -8,6 +8,7 @@ arch="x86_64"
 license="GPLv3"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
+options="!check"
 builddir="$srcdir/$pkgname-$pkgver"
 
 prepare() {

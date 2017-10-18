@@ -15,4 +15,4 @@ cp -r /alpine/home/builder/packages/alpine-repo packages
 echo $DEPLOYKEY | base64 -d > ~/.ssh/id_ed25519
 chmod 600 ~/.ssh/id_ed25519
 cp known_hosts ~/.ssh/
-printf "rm packages/*\nput -r packages" | sftp -b - ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/
+printf "rm packages/x86_64/*\nrmdir packages/x86_64\nput -r packages" | sftp -b - ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/
