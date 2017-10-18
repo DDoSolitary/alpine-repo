@@ -11,6 +11,7 @@ script:
   - /alpine/enter-chroot ./init.sh
 
   - /alpine/enter-chroot -u builder ./build.sh
+  - cp -r /alpine/home/builder/packages/alpine-repo packages
 
   - echo $DEPLOYKEY | base64 -d > ~/.ssh/id_ed25519
   - cp known_hosts ~/.ssh/

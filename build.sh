@@ -5,5 +5,3 @@ for i in $(cat build-list); do
 	abuild -R
 	cd ..
 done
-
-cp -r ~/packages/alpine-repo packages
