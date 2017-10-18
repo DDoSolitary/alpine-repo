@@ -4,7 +4,7 @@ This is an unofficial repository for Alpine Linux.
 
 # How to use
 
-To use the pre-built packages, follow these setps:
+To use the pre-built packages, follow these steps:
 
 1. Make sure `ca-certificates` has been installed.
 
