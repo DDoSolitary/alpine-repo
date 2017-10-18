@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 adduser -D builder
 addgroup builder abuild
