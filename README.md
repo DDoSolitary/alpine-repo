@@ -30,4 +30,4 @@ https://alpine-repo.sourceforge.io/packages
 apk update
 ```
 
-5. Enjoy it!
+5. **Enjoy it!**
