@@ -12,6 +12,6 @@ script:
 
   - /alpine/enter-chroot -u builder ./build.sh
 
-  - mkdir ~/.ssh
   - echo $DEPLOYKEY | base64 -d > ~/.ssh/id_ed25519
-  - echo "put -r packages" | sftp ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/
+  - cp known_hosts ~/.ssh/
+  - printf "rm packages/*\nput -r packages" | sftp -b - ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/
