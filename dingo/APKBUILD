@@ -7,7 +7,7 @@ url="https://github.com/pforemski/dingo"
 arch="x86_64"
 license="GPLv3"
 makedepends="go"
-source="$pkgname-$pkgver.tar.gz::$url/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
 builddir="$srcdir/$pkgname-$pkgver"
 
 prepare() {
