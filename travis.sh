@@ -25,6 +25,7 @@ MOUNT_POINT=/alpine/home/builder/packages/alpine-repo
 # Mount the web server's filesystem
 sudo mkdir -p "$MOUNT_POINT"
 sudo bash -c 'echo user_allow_other >> /etc/fuse.conf'
+sudo chmod 644 /etc/fuse.conf
 sshfs -o allow_other \
 	ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/packages \
 	"$MOUNT_POINT"
