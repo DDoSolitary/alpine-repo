@@ -4,6 +4,6 @@ set -e
 for i in */APKBUILD; do
 	pushd "$(dirname "$i")"
 	abuild -Rk
-	abuild cleanoldpkg
+	abuild cleanoldpkg || true
 	popd
 done
