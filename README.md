@@ -20,16 +20,18 @@ apk add ca-certificates
 wget -P /etc/apk/keys https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub
 ```
 
-3. Add this line to `/etc/apk/repositories`
+3. I only build packages against the edge releases, so [upgrade to it](https://wiki.alpinelinux.org/wiki/Upgrading_Alpine#Upgrading_to_Edge) if you're using stable releases.
+
+4. Add this line to `/etc/apk/repositories`
 
 ```
 https://alpine-repo.sourceforge.io/packages
 ```
 
-4. Update your local index.
+5. Update your local index.
 
 ```
 apk update
 ```
 
-5. **Enjoy it!**
+6. **Enjoy it!**
