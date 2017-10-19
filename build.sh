@@ -3,6 +3,7 @@ set -e
 
 for i in $(cat build-list); do
 	cd "$i"
-	abuild -R
+	abuild cleanoldpkg
+	abuild -Rk
 	cd ..
 done
