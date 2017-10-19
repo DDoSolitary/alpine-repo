@@ -8,12 +8,16 @@ arch="x86_64"
 license="BSD-2-Clause"
 subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-options="!check"
 builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
 	cd "$builddir"
 	make
+}
+
+check() {
+	cd "$builddir"
+	make test
 }
 
 package() {
