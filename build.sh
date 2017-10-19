@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 for i in */APKBUILD; do
 	pushd "$(dirname "$i")"
