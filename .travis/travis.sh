@@ -7,7 +7,7 @@ chmod +x alpine-chroot-install
 sudo ./alpine-chroot-install -b edge -p "alpine-sdk bash"
 
 # Run the initiallize script
-/alpine/enter-chroot ./init.sh
+/alpine/enter-chroot .travis/init.sh
 
 # Install keys for signing packages
 echo $PRIVKEY | base64 -d > DDoSolitary@gmail.com-00000000.rsa
@@ -18,7 +18,7 @@ MOUNT_POINT=/alpine/home/builder/packages/alpine-repo
 sudo bash -c "
 	echo $DEPLOYKEY | base64 -d > /root/.ssh/id_ed25519
 	chmod 600 /root/.ssh/id_ed25519
-	cp known_hosts /root/.ssh/
+	cp .travis/known_hosts /root/.ssh/
 
 	mkdir -p $MOUNT_POINT
 	sshfs -o allow_other \
@@ -27,7 +27,7 @@ sudo bash -c "
 "
 
 # Build the packages
-/alpine/enter-chroot -u builder ./build.sh
+/alpine/enter-chroot -u builder .travis/build.sh
 
 # Unmount the web server's filesystem
 sudo fusermount -u $MOUNT_POINT

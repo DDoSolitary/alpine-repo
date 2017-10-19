@@ -15,4 +15,4 @@ env:
   - ARCH=s390x
 
 script:
-  - ./travis.sh
+  - .travis/travis.sh
