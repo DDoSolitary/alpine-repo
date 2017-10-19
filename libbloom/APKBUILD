@@ -21,6 +21,7 @@ package() {
 	install -Dm644 bloom.h "$pkgdir"/usr/include/bloom.h
 	install -Dm755 build/libbloom.so.$pkgver "$pkgdir"/usr/lib/libbloom.so.$pkgver
 	ln -s libbloom.so.$pkgver "$pkgdir"/usr/lib/libbloom.so
+	ln -s libbloom.so.$pkgver "$pkgdir"/usr/lib/$(objdump -p build/libbloom.so.$pkgver | grep SONAME | awk '{ print $2 }')
 }
 
 sha512sums="0dd69e3ee102e5808ba4350c71d212876db56235e263f8d5a66d6c3616d2e51cc18b5ca3a5a946d79c12751d9cc5667f7c633d77645c4b88a4d16ea344b51929  libbloom-1.5.tar.gz"
