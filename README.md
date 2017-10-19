@@ -17,7 +17,7 @@ apk add ca-certificates
 2. Trust my public key.
 
 ```
-wget -P /etc/apk/keys https://github.com/DDoSolitary/alpine-repo/raw/master/DDoSolitary%40gmail.com-00000000.rsa.pub
+wget -P /etc/apk/keys https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub
 ```
 
 3. Add this line to `/etc/apk/repositories`

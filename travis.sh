@@ -6,6 +6,7 @@ chmod +x alpine-chroot-install
 sudo ./alpine-chroot-install -b edge -p "alpine-sdk bash"
 
 echo $PRIVKEY | base64 -d > DDoSolitary@gmail.com-00000000.rsa
+sudo wget -P /alpine/etc/apk/keys https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub
 find -mindepth 1 -maxdepth 1 -type d ! -path "./.git" > build-list
 /alpine/enter-chroot ./init.sh
 
