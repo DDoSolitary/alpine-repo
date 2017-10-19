@@ -8,10 +8,10 @@ This is an unofficial repository for Alpine Linux.
 
 To use the pre-built packages, follow these steps:
 
-1. Make sure `ca-certificates` has been installed.
+1. Make sure `ca-certificates` and `wget` has been installed.
 
 ```
-apk add ca-certificates
+apk add ca-certificates wget
 ```
 
 2. Trust my public key.
