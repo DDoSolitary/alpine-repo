@@ -16,6 +16,8 @@ sudo wget -P /alpine/etc/apk/keys https://alpine-repo.sourceforge.io/DDoSolitary
 # Mount the web server's filesystem
 MOUNT_POINT=/alpine/home/builder/packages/alpine-repo
 sudo bash -c "
+	set -e
+
 	echo $DEPLOYKEY | base64 -d > /root/.ssh/id_ed25519
 	chmod 600 /root/.ssh/id_ed25519
 	cp .travis/known_hosts /root/.ssh/
