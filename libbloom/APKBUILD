@@ -12,12 +12,12 @@ builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
 	cd "$builddir"
-	make
+	BITS=default make
 }
 
 check() {
 	cd "$builddir"
-	make test
+	BITS=default make test
 }
 
 package() {
