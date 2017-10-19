@@ -9,6 +9,6 @@ cat >> /etc/abuild.conf <<- EOF
 	PACKAGER_PRIVKEY="$PWD/DDoSolitary@gmail.com-00000000.rsa"
 EOF
 
-for i in $(cat build-list); do
-	chmod 777 "$i"
+for i in */APKBUILD; do
+	chmod 777 "$(dirname "$i")"
 done

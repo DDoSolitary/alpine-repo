@@ -6,9 +6,6 @@ wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/
 chmod +x alpine-chroot-install
 sudo ./alpine-chroot-install -b edge -p "alpine-sdk bash"
 
-# Find the packages to build
-find -mindepth 1 -maxdepth 1 -type d ! -path "./.git" > build-list
-
 # Run the initiallize script
 /alpine/enter-chroot ./init.sh
 

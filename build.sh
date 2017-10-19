@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-for i in $(cat build-list); do
-	cd "$i"
+for i in */APKBUILD; do
+	pushd "$(dirname "$i")"
 	abuild cleanoldpkg
 	abuild -Rk
-	cd ..
+	popd
 done
