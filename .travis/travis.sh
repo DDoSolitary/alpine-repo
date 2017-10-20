@@ -3,6 +3,7 @@ set -e
 
 # Install an Alpine Linux chroot environment
 wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/alpine-chroot-install
+sed -i "s/\(QEMU_UBUNTU_REL=\).*/\1artful/" alpine-chroot-install
 chmod +x alpine-chroot-install
 sudo ./alpine-chroot-install -b edge -p "alpine-sdk bash"
 
