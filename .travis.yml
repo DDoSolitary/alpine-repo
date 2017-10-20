@@ -12,7 +12,6 @@ env:
   - ARCH=aarch64
   - ARCH=armhf
   - ARCH=ppc64le
-  - ARCH=s390x
 
 script:
   - .travis/travis.sh
