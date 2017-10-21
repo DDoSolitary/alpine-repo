@@ -8,7 +8,9 @@ chmod +x alpine-chroot-install
 ./alpine-chroot-install -b edge -p "alpine-sdk bash"
 
 # Install keys for signing packages
+set +x
 echo "$PRIVKEY" | base64 -d > DDoSolitary@gmail.com-00000000.rsa
+set -x
 wget -P /alpine/etc/apk/keys https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub
 cat >> /alpine/etc/abuild.conf <<- EOF
 	PACKAGER="DDoSolitary <DDoSolitary@gmail.com>"
@@ -17,7 +19,9 @@ EOF
 
 # Mount the web server's filesystem
 MOUNT_POINT=/alpine/home/builder/packages/alpine-repo
+set +x
 echo "$DEPLOYKEY" | base64 -d > /root/.ssh/id_ed25519
+set -x
 chmod 600 /root/.ssh/id_ed25519
 cp .travis/known_hosts /root/.ssh/
 mkdir -p "$MOUNT_POINT"
