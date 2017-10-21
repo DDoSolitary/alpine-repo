@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 # Install an Alpine Linux chroot environment
 wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/alpine-chroot-install
