@@ -14,4 +14,4 @@ env:
   - ARCH=ppc64le
 
 script:
-  - .travis/travis.sh
+  - sudo .travis/travis.sh

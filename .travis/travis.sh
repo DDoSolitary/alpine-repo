@@ -5,32 +5,27 @@ set -e
 wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/alpine-chroot-install
 sed -i "s/\(QEMU_UBUNTU_REL=\).*/\1artful/" alpine-chroot-install
 chmod +x alpine-chroot-install
-sudo ./alpine-chroot-install -b edge -p "alpine-sdk bash"
+./alpine-chroot-install -b edge -p "alpine-sdk bash"
+
+# Install keys for signing packages
+echo "$PRIVKEY" | base64 -d > DDoSolitary@gmail.com-00000000.rsa
+wget -P /alpine/etc/apk/keys https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub
 
 # Run the initialization script
 /alpine/enter-chroot .travis/init.sh
 
-# Install keys for signing packages
-echo $PRIVKEY | base64 -d > DDoSolitary@gmail.com-00000000.rsa
-sudo wget -P /alpine/etc/apk/keys https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub
-
 # Mount the web server's filesystem
 MOUNT_POINT=/alpine/home/builder/packages/alpine-repo
-sudo bash -c "
-	set -e
-
-	echo $DEPLOYKEY | base64 -d > /root/.ssh/id_ed25519
-	chmod 600 /root/.ssh/id_ed25519
-	cp .travis/known_hosts /root/.ssh/
-
-	mkdir -p $MOUNT_POINT
-	sshfs -o allow_other \
-		ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/packages \
-		$MOUNT_POINT
-"
+echo "$DEPLOYKEY" | base64 -d > /root/.ssh/id_ed25519
+chmod 600 /root/.ssh/id_ed25519
+cp .travis/known_hosts /root/.ssh/
+mkdir -p "$MOUNT_POINT"
+sshfs -o allow_other \
+	ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/packages \
+	"$MOUNT_POINT"
 
 # Build the packages
 /alpine/enter-chroot -u builder .travis/build.sh
 
 # Unmount the web server's filesystem
-sudo fusermount -u $MOUNT_POINT
+fusermount -u "$MOUNT_POINT"
