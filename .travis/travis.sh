@@ -7,7 +7,7 @@ sed -i "s/\(QEMU_UBUNTU_REL=\).*/\1artful/" alpine-chroot-install
 chmod +x alpine-chroot-install
 sudo ./alpine-chroot-install -b edge -p "alpine-sdk bash"
 
-# Run the initiallize script
+# Run the initialization script
 /alpine/enter-chroot .travis/init.sh
 
 # Install keys for signing packages
