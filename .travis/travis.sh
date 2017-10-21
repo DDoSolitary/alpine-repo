@@ -30,7 +30,7 @@ sshfs -o allow_other \
 for i in */APKBUILD; do
 	pushd "$(dirname "$i")"
 	chmod 777 .
-	/alpine/enter-chroot -u builder bash -c "abuild -Rk"
+	/alpine/enter-chroot -u builder bash -c "abuild -Rk" || true
 	/alpine/enter-chroot -u builder bash -c "abuild cleanoldpkg" || true
 	popd
 done
