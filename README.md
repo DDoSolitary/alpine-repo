@@ -19,7 +19,7 @@ apk add ca-certificates
 ```
 wget -P /etc/apk/keys https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub
 ```
-This public key is signed by my GPG key (key ID is `688E1D093C3638F588890D4450268311C7AD3F62`). If you want to verify the public key, you can download the signature from [here](https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub.sig), and get my public key from the SKS keyservers.
+This public key is signed by my GPG key. If you want to verify the public key, you can download the signature from [here](https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub.sig), and get my public key from the SKS keyservers. The fingerprint of my GPG key is `688E1D093C3638F588890D4450268311C7AD3F62`.
 
 3. I only build packages for the edge releases, so [upgrade to it](https://wiki.alpinelinux.org/wiki/Upgrading_Alpine#Upgrading_to_Edge) if you're using stable releases.
 
