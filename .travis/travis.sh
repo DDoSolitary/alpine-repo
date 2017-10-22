@@ -31,13 +31,22 @@ sshfs -o allow_other \
 
 # Build the packages
 /alpine/enter-chroot bash -c "adduser -D builder && addgroup builder abuild"
+BUILD_ERR=0
 for i in */APKBUILD; do
 	pushd "$(dirname "$i")"
 	chmod 777 .
-	/alpine/enter-chroot -u builder bash -c "abuild -Rk" || true
-	/alpine/enter-chroot -u builder bash -c "abuild cleanoldpkg" || true
+	set +e
+	/alpine/enter-chroot -u builder bash -c "abuild -Rk"
+	if [ "$BUILD_ERR" == "0" ]; then
+		/alpine/enter-chroot -u builder bash -c "abuild cleanoldpkg"
+	else
+		BUILD_ERR="$?"
+	fi
+	set -e
 	popd
 done
 
 # Unmount the web server's filesystem
 fusermount -u "$MOUNT_POINT"
+
+if [ "$BUILD_ERR" != "0" ]; then exit 1; fi
