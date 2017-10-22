@@ -49,4 +49,4 @@ done
 # Unmount the web server's filesystem
 fusermount -u "$MOUNT_POINT"
 
-if [ "$BUILD_ERR" != "0" ]; then exit 1; fi
+exit "$BUILD_ERR"
