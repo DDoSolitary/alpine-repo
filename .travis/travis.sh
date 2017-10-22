@@ -37,12 +37,13 @@ for i in */APKBUILD; do
 	chmod 777 .
 	set +e
 	/alpine/enter-chroot -u builder bash -c "abuild -Rk"
-	if [ "$BUILD_ERR" == "0" ]; then
+	if [ "$?" == "0" ]; then
+		set -e
 		/alpine/enter-chroot -u builder bash -c "abuild cleanoldpkg"
 	else
-		BUILD_ERR="$?"
+		set -e
+		BUILD_ERR=1
 	fi
-	set -e
 	popd
 done
 
