@@ -1,6 +1,7 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=libcork
-pkgver=0.15.0
+_commit=5a01dc181c8ed4910e06e136d062f7365e70d5ee
+pkgver=0.15.0.r22.$(echo $_commit | head -c5)
 pkgrel=0
 pkgdesc="A simple, easily embeddable cross-platform C library"
 url="https://github.com/gregvirgin/libcork"
@@ -15,6 +16,7 @@ prepare() {
 	cd "$srcdir"
 	git clone "$url"
 	cd "$pkgname"
+	git checkout $_commit
 	git checkout $pkgver
 	mkdir build
 }
