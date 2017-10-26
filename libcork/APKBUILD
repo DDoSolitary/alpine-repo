@@ -8,7 +8,7 @@ url="https://github.com/gregvirgin/libcork"
 arch="all"
 license="BSD-3-Clause"
 depends="tzdata"
-makedepends="cmake check-dev"
+makedepends="cmake check-dev python2"
 subpackages="$pkgname-dev"
 builddir="$srcdir/$pkgname/build"
 
