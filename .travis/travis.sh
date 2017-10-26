@@ -8,13 +8,14 @@ chmod +x alpine-chroot-install
 ./alpine-chroot-install -b edge -p "alpine-sdk bash"
 
 # Install keys for signing packages
+KEYNAME=DDoSolitary@gmail.com-00000000.rsa
 set +x
-echo "$PRIVKEY" | base64 -d > DDoSolitary@gmail.com-00000000.rsa
+echo "$PRIVKEY" | base64 -d > "$KEYNAME"
 set -x
-wget -P /alpine/etc/apk/keys https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub
+openssl rsa -in "$KEYNAME" -pubout -out "/alpine/etc/apk/keys/$KEYNAME.pub"
 cat >> /alpine/etc/abuild.conf <<- EOF
 	PACKAGER="DDoSolitary <DDoSolitary@gmail.com>"
-	PACKAGER_PRIVKEY="$PWD/DDoSolitary@gmail.com-00000000.rsa"
+	PACKAGER_PRIVKEY="$PWD/$KEYNAME"
 EOF
 
 # Mount the web server's filesystem
