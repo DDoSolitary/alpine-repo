@@ -17,7 +17,6 @@ prepare() {
 	git clone "$url"
 	cd "$pkgname"
 	git checkout $_commit
-	git checkout $pkgver
 	mkdir build
 }
 
