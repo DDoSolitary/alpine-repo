@@ -2,7 +2,7 @@
 pkgname=libcork
 _commit=330100d83408d6044c1dfe3ca74766f3d03b9f47
 pkgver=0.15.0.r33.$(echo $_commit | head -c5)
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple, easily embeddable cross-platform C library"
 url="https://github.com/gregvirgin/libcork"
 arch="all"
@@ -17,6 +17,7 @@ prepare() {
 	git clone "$url"
 	cd "$pkgname"
 	git checkout $_commit
+	sed -i "s/@VERSION@/$pkgver/" src/libcork.pc.in
 	mkdir build
 }
 
