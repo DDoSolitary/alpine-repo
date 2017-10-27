@@ -1,7 +1,7 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=libcork
-_commit=5a01dc181c8ed4910e06e136d062f7365e70d5ee
-pkgver=0.15.0.r22.$(echo $_commit | head -c5)
+_commit=330100d83408d6044c1dfe3ca74766f3d03b9f47
+pkgver=0.15.0.r33.$(echo $_commit | head -c5)
 pkgrel=1
 pkgdesc="A simple, easily embeddable cross-platform C library"
 url="https://github.com/gregvirgin/libcork"
@@ -22,7 +22,7 @@ prepare() {
 
 build() {
 	cd "$builddir"
-	cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+	cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib
 	make
 }
 
