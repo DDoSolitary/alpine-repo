@@ -19,7 +19,7 @@ cat >> /alpine/etc/abuild.conf <<- EOF
 EOF
 
 # Mount the web server's filesystem
-MOUNT_POINT=/alpine/home/builder/packages/alpine-repo
+MOUNT_POINT="/alpine/home/builder/packages/alpine-repo/$ARCH"
 set +x
 echo "$DEPLOYKEY" | base64 -d > /root/.ssh/id_ed25519
 set -x
@@ -27,7 +27,7 @@ chmod 600 /root/.ssh/id_ed25519
 cp .travis/known_hosts /root/.ssh/
 mkdir -p "$MOUNT_POINT"
 sshfs -o allow_other \
-	ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/packages \
+	"ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/packages/$ARCH" \
 	"$MOUNT_POINT"
 
 # Build the packages
