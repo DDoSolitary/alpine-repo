@@ -1,7 +1,7 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=dingo
 pkgver=0.13
-pkgrel=0
+pkgrel=1
 pkgdesc="A DNS client in Go that supports Google DNS over HTTPS"
 url="https://github.com/pforemski/dingo"
 arch="all"
@@ -14,18 +14,18 @@ builddir="$srcdir/$pkgname-$pkgver"
 prepare() {
 	cd "$srcdir"
 	mkdir .gopath
-	export GOPATH="$srcdir/.gopath"
-	go get github.com/miekg/dns github.com/patrickmn/go-cache golang.org/x/net/http2
 }
 
 build() {
+	export GOPATH="$srcdir/.gopath"
 	cd "$builddir"
+	go get -d
 	go build -o dingo
 }
 
 package() {
-  cd "$builddir"
-  install -Dm755 dingo "$pkgdir"/usr/bin/dingo
+	cd "$builddir"
+	install -Dm755 dingo "$pkgdir"/usr/bin/dingo
 }
 
 sha512sums="24748a726aea598f6f8785bfe0bc349608e7106860fa73f4e3da12936035c249e8bdfee0e2d162d876beecf60b5cdfbce6cd0f09b040ce7b1db2d901bc0fd350  dingo-0.13.tar.gz"
