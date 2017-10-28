@@ -9,7 +9,7 @@ license="BSD-3-Clause"
 makedepends="go"
 source="$url/archive/$pkgname-$pkgver.tar.gz"
 options="!check"
-builddir="$srcdir/obfs4-$pkgname-$pkgver"
+builddir="$srcdir/obfs4-$pkgname-$pkgver/$pkgname"
 
 prepare() {
 	cd "$srcdir"
@@ -26,7 +26,7 @@ build() {
 package() {
 	cd "$builddir"
 	install -Dm755 obfs4proxy "$pkgdir/usr/bin/obfs4proxy"
-	install -Dm644 doc/obfs4proxy.1 "$pkgdir/usr/share/man/man1/obfs4proxy.1"
+	install -Dm644 ../doc/obfs4proxy.1 "$pkgdir/usr/share/man/man1/obfs4proxy.1"
 }
 
 sha512sums="57b71138a139b1821cf58c8e1965f207a6164a046bbfc8d6da828351d4f5bf4ecfb63ca5c69dba834c4e3a72362089d2a7fd296278115c0cae1c53c51d1b124d  obfs4proxy-0.0.7.tar.gz"
