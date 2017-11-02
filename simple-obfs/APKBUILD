@@ -29,7 +29,7 @@ check() {
 }
 
 package() {
-	cd simple-obfs-$pkgver
+	cd "$builddir"
 	make DESTDIR="$pkgdir/" install
 }
 
