@@ -1,0 +1,36 @@
+# Maintainer: DDoSolitary <DDoSolitary@gmail.com>
+pkgname=simple-obfs
+pkgver=0.0.3
+pkgrel=0
+pkgdesc="A simple obfusacting tool designed as plugin server of shadowsocks"
+url='https://github.com/shadowsocks/simple-obfs'
+arch="all"
+license="GPLv3+"
+makedepends="autoconf automake libtool linux-headers c-ares-dev libev-dev libcork-dev asciidoc xmlto"
+subpackages="$pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/shadowsocks/simple-obfs/archive/v$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+prepare() {
+	cd "$builddir"
+	patch -p1 -i debian/patches/0001-Use-libcork-dev-in-system.patch
+}
+
+build() {
+	cd "$builddir"
+	./autogen.sh
+	./configure --prefix=/usr
+	make
+}
+
+check() {
+	cd "$builddir"
+	make check
+}
+
+package() {
+	cd simple-obfs-$pkgver
+	make DESTDIR="$pkgdir/" install
+}
+
+sha512sums="1e2f1c5a32508426a58d4894a3623d10ff6add875137444cea9bda61d972f3d36bd8b477358f31e719a9950fc745cebff2c632b4fca117cc439a69a747b85837  simple-obfs-0.0.3.tar.gz"
