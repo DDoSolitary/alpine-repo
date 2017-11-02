@@ -1,13 +1,15 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=dingo
 pkgver=0.13
-pkgrel=1
+pkgrel=2
 pkgdesc="A DNS client in Go that supports Google DNS over HTTPS"
 url="https://github.com/pforemski/dingo"
 arch="all"
 license="GPLv3"
 makedepends="go"
-source="$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz
+	dingo.initd
+	dingo.confd"
 options="!check"
 builddir="$srcdir/$pkgname-$pkgver"
 
@@ -24,8 +26,13 @@ build() {
 }
 
 package() {
+	cd "$srcdir"
+	install -Dm755 dingo.initd "$pkgdir"/etc/init.d/dingo
+	install -Dm644 dingo.confd "$pkgdir"/etc/conf.d/dingo
 	cd "$builddir"
 	install -Dm755 dingo "$pkgdir"/usr/bin/dingo
 }
 
-sha512sums="24748a726aea598f6f8785bfe0bc349608e7106860fa73f4e3da12936035c249e8bdfee0e2d162d876beecf60b5cdfbce6cd0f09b040ce7b1db2d901bc0fd350  dingo-0.13.tar.gz"
+sha512sums="24748a726aea598f6f8785bfe0bc349608e7106860fa73f4e3da12936035c249e8bdfee0e2d162d876beecf60b5cdfbce6cd0f09b040ce7b1db2d901bc0fd350  dingo-0.13.tar.gz
+e46f54b9bf8bfb823dd10cfa4410e5b2fd796ea000ea416a88bef04a8a5c0834c339a2973b7387e8f803c9025247a64b1b859e6c89532329b371ae56f514109a  dingo.initd
+2fe5af85ea9e3535c2ff4d2379ca4343826d0dff1b4811f22326d39d556203893cb7f07ab386ddea5cc6696827dbeca67917f991a6a949be3458f44ebeb65dec  dingo.confd"
