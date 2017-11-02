@@ -5,3 +5,7 @@ command="/usr/bin/dingo"
 command_args="$DINGO_OPTS"
 command_background="yes"
 pidfile="/var/run/dingo.pid"
+
+depend() {
+	need net
+}
