@@ -1,7 +1,7 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=shadowsocks-libev
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="lightweight secured SOCKS5 proxy"
 url="https://github.com/shadowsocks/shadowsocks-libev"
 arch="all"
@@ -11,7 +11,15 @@ makedepends="autoconf automake libtool linux-headers
 	libbloom-dev libcork-dev libcorkipset-dev
 	asciidoc xmlto"
 subpackages="$pkgname-dev $pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
+	shadowsocks-local.initd
+	shadowsocks-redir.initd
+	shadowsocks-server.initd
+	shadowsocks-tunnel.initd
+	shadowsocks-local.confd
+	shadowsocks-redir.confd
+	shadowsocks-server.confd
+	shadowsocks-tunnel.confd"
 builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
@@ -30,8 +38,21 @@ check() {
 }
 
 package() {
+	cd "$srcdir"
+	for i in local redir server tunnel; do
+		install -Dm755 shadowsocks-$i.initd "$pkgdir"/etc/init.d/shadowsocks-$i
+		install -Dm644 shadowsocks-$i.confd "$pkgdir"/etc/conf.d/shadowsocks-$i
+	done
 	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="e2a8686a60b2fa782e2f036963d8789275f9d3faee541984f54069bf6e0d1a7cfee218b63cc0600e29b7efcef6872d4ad45363b69a3360e9958143b82e33fd4e  shadowsocks-libev-3.1.0.tar.gz"
+sha512sums="e2a8686a60b2fa782e2f036963d8789275f9d3faee541984f54069bf6e0d1a7cfee218b63cc0600e29b7efcef6872d4ad45363b69a3360e9958143b82e33fd4e  shadowsocks-libev-3.1.0.tar.gz
+67d2c3900087c65ffdd99740ed2e5492e71210933f00eb0fe1acbe50c989dfc4a8f91450901d9e9ba7a56d55fc6eede08d06c86e70391b8b1af78815ca3f1548  shadowsocks-local.initd
+a85deb017ff1938535ce815e4ba446b4dd30edb88dc26970c5426a8c93f4cb5035f0de82020dede9e5d1146a8d8c91783aab4ad33db5a88edfeca38fafbbb54c  shadowsocks-redir.initd
+16f4ac4486eca53f59dd24be26ce513b89ebed62ce953df215799aecd64a4ce713f771839d46888a127ec0e37613ab0940eeffa3b4f199aa68fa163b39ac7457  shadowsocks-server.initd
+31ec38e96784fe8b9bc98e682c69cbd68b6989f73b7b5b264bf02fa57c2412b6f2915a9a2630a35fceae98487f6600faa1b9bf94bac350423f3db6e50bd47327  shadowsocks-tunnel.initd
+adb3eafa60222a8ced8712c74ca52ab626835bef1c2122c62359244ea1400e3533ef7cd4fbf9fee023ef998e529d21f4938a1cced1ad9777d68c9e6b5cabe780  shadowsocks-local.confd
+d12f815f772f5f84f4c5a80be53677476a5ad65c782a27d02e548c7373982de20419e00a5424b8041943d7af0e2016e013585c0657462bd489cf793cb3a90adb  shadowsocks-redir.confd
+bcd9b4b48cd1aca78196a063bc502a914ef94ddb32d5c11f926f81905a0e0fb867d91ac8956867c4f2cf84d0e8e833af9eebe205b126af1275596589eac720ba  shadowsocks-server.confd
+bf5f682a23b9c2fb0fa956bb45fb938e4ee100dfa5a9274a769baa1b04b12dde3f4017ad8fee5ed577fd792f5b96e757cdd356967eed0e1c2e42bee7dbba0d7d  shadowsocks-tunnel.confd"

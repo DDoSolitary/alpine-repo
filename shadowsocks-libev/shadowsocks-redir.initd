@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+
+name="shadowsocks-redir"
+command="/usr/bin/ss-redir"
+pidfile="/var/run/ss-redir.pid"
+command_args="-c $SS_CONFFILE -f $pidfile"
+
+depend() {
+	need net
+}

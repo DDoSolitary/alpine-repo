@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+
+name="shadowsocks-tunnel"
+command="/usr/bin/ss-tunnel"
+pidfile="/var/run/ss-tunnel.pid"
+command_args="-c $SS_CONFFILE -f $pidfile"
+
+depend() {
+	need net
+}

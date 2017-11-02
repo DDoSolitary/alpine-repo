@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+
+name="shadowsocks-local"
+command="/usr/bin/ss-local"
+pidfile="/var/run/ss-local.pid"
+command_args="-c $SS_CONFFILE -f $pidfile"
+
+depend() {
+	need net
+}
