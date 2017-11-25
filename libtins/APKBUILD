@@ -1,0 +1,36 @@
+# Maintainer: DDoSolitary <DDoSolitary@gmail.com>
+pkgname=libtins
+pkgver=3.5
+pkgrel=0
+pkgdesc="High-level, multiplatform C++ network packet sniffing and crafting library"
+url="https://github.com/mfontanini/libtins"
+arch="all"
+license="BSD-2-Clause"
+makedepends="cmake libpcap-dev libressl-dev boost-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+builddir="$srcdir/$pkgname/build"
+
+prepare() {
+	cd "$srcdir"
+	git clone "$url"
+	cd "$pkgname"
+	git checkout "v$pkgver"
+	git submodule update --init --recursive
+	mkdir build
+}
+
+build() {
+	cd "$builddir"
+	cmake .. -DLIBTINS_ENABLE_CXX11=1 -DCMAKE_INSTALL_PREFIX=/usr
+	make tests
+}
+
+check() {
+	cd "$builddir"
+	make test
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
