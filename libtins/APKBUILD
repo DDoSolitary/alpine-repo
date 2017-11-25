@@ -7,7 +7,7 @@ url="https://github.com/mfontanini/libtins"
 arch="all"
 license="BSD-2-Clause"
 makedepends="cmake libpcap-dev libressl-dev boost-dev"
-subpackages="$pkgname-dev $pkgname-doc"
+subpackages="$pkgname-dev"
 builddir="$srcdir/$pkgname/build"
 
 prepare() {
