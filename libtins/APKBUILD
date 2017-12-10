@@ -17,7 +17,7 @@ prepare() {
 	cd "$pkgname"
 	git checkout "v$pkgver"
 	git submodule update --init --recursive
-	git apply network-interface-test.patch
+	git apply "$srcdir/network-interface-test.patch"
 	mkdir build
 }
 
