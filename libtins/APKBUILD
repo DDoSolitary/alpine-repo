@@ -8,6 +8,7 @@ arch="all"
 license="BSD-2-Clause"
 makedepends="cmake libpcap-dev libressl-dev boost-dev"
 subpackages="$pkgname-dev"
+source="network-interface-test.patch"
 builddir="$srcdir/$pkgname/build"
 
 prepare() {
@@ -16,6 +17,7 @@ prepare() {
 	cd "$pkgname"
 	git checkout "v$pkgver"
 	git submodule update --init --recursive
+	git apply network-interface-test.patch
 	mkdir build
 }
 
@@ -34,3 +36,5 @@ package() {
 	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 }
+
+sha512sums="11de6593bc88aed714054548586d301df9999964f3854d9d8275b9f9119841e483dd9882d1e63a879cffa31ef10aba4434da497ac52070f6ebf99e2d0ada9a6c  network-interface-test.patch"
