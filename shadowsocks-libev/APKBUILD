@@ -1,6 +1,6 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=shadowsocks-libev
-pkgver=3.1.2
+pkgver=3.1.3
 pkgrel=0
 pkgdesc="lightweight secured SOCKS5 proxy"
 url="https://github.com/shadowsocks/shadowsocks-libev"
@@ -47,7 +47,7 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="c40498b1e8f0e2c9460a8d7838ab7df35378d5e47dbc7c39f8fa72c70dede8515b481bf0a412e4e8d6819592c2dd8eb01e536d5c8090d2ec5524add13954a5e9  shadowsocks-libev-3.1.2.tar.gz
+sha512sums="cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e  shadowsocks-libev-3.1.3.tar.gz
 67d2c3900087c65ffdd99740ed2e5492e71210933f00eb0fe1acbe50c989dfc4a8f91450901d9e9ba7a56d55fc6eede08d06c86e70391b8b1af78815ca3f1548  shadowsocks-local.initd
 a85deb017ff1938535ce815e4ba446b4dd30edb88dc26970c5426a8c93f4cb5035f0de82020dede9e5d1146a8d8c91783aab4ad33db5a88edfeca38fafbbb54c  shadowsocks-redir.initd
 16f4ac4486eca53f59dd24be26ce513b89ebed62ce953df215799aecd64a4ce713f771839d46888a127ec0e37613ab0940eeffa3b4f199aa68fa163b39ac7457  shadowsocks-server.initd
