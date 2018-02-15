@@ -39,7 +39,7 @@ apk update
 
 # Limitations
 
-- No CDN, downloading may be slow in some regions (e.g. China).
+- Downloading may be slow in some regions (e.g. China).
 
 - No packages for the s390x. Though this architecture is supported by Alpine Linux, qemu doesn't work well with it. So I can't build for it as the only build envrironment I can use is Travis CI's x86_64 servers.
 
