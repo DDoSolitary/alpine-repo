@@ -1,6 +1,6 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=simple-obfs
-pkgver=0.0.4
+pkgver=0.0.5
 pkgrel=0
 pkgdesc="A simple obfusacting tool designed as plugin server of shadowsocks"
 url='https://github.com/shadowsocks/simple-obfs'
@@ -33,4 +33,4 @@ package() {
 	make DESTDIR="$pkgdir/" install
 }
 
-sha512sums="ab0568ce0d793675f3c8266efe30c809f8a5b2c21d795a31a29cc03ecc8d5196dc118eb43ba8d68d6bd4de2398664c4cd73abc7aa422ea06a8468a4abba2c4d2  simple-obfs-0.0.4.tar.gz"
+sha512sums="aadb812d5a57fea664958b66aae0c5be5e82309758706181ed5f1c76a986c1a6eaa82a6cb8b242052a951dd2d9d178d734f04052be887b5dd8f336808db61bcb  simple-obfs-0.0.5.tar.gz"
