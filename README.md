@@ -1,6 +1,6 @@
 # alpine-repo
 
-[![Build Status](https://travis-ci.org/DDoSolitary/alpine-repo.svg)](https://travis-ci.org/DDoSolitary/alpine-repo)
+[![Build Status](https://img.shields.io/appveyor/ci/ddosolitary/alpine-repo/master.svg)](https://ci.appveyor.com/project/DDoSolitary/alpine-repo)
 
 This is an unofficial repository for Alpine Linux.
 
