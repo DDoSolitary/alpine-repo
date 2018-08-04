@@ -12,6 +12,6 @@ environment:
     - ARCH: armhf
     - ARCH: ppc64le
 install:
-  - sh: sudo apt-get install sshfs binfmt-support
+  - sh: sudo apt-get install sshfs
 build_script:
   - sh: sudo -E ./build.sh
