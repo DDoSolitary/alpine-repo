@@ -1,4 +1,4 @@
-﻿image: ubuntu
+﻿image: ubuntu1804
 environment:
   APPVEYOR_SSH_KEY: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKT+cNNXkuRbXGzHH2u2gP8HGmqG8f+CNH9N4JwK9Ova
   DEPLOYKEY:
