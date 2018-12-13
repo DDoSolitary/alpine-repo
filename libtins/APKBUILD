@@ -8,7 +8,7 @@ arch="all"
 license="BSD-2-Clause"
 makedepends="cmake libpcap-dev libressl-dev boost-dev"
 subpackages="$pkgname-dev"
-source="network-interface-test.patch"
+source="network-interface-test.patch radiotap-buffer-overflow.patch"
 builddir="$srcdir/$pkgname/build"
 
 prepare() {
@@ -18,6 +18,7 @@ prepare() {
 	git checkout "v$pkgver"
 	git submodule update --init --recursive
 	git apply "$srcdir/network-interface-test.patch"
+	git apply "$srcdir/radiotap-buffer-overflow.patch"
 	mkdir build
 }
 
@@ -37,4 +38,5 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="11de6593bc88aed714054548586d301df9999964f3854d9d8275b9f9119841e483dd9882d1e63a879cffa31ef10aba4434da497ac52070f6ebf99e2d0ada9a6c  network-interface-test.patch"
+sha512sums="11de6593bc88aed714054548586d301df9999964f3854d9d8275b9f9119841e483dd9882d1e63a879cffa31ef10aba4434da497ac52070f6ebf99e2d0ada9a6c  network-interface-test.patch
+ec9c884ef85e0458830abeb93f9ddd994fd827f6a701912c0f9c4d58cab1063fa64e9ad1a22a8dc938b31c21b44c24f278970ead1e1296079a4b9322e1b71108  radiotap-buffer-overflow.patch"
