@@ -37,10 +37,12 @@ fi
 
 # Build the packages
 /alpine/enter-chroot bash -c "adduser -D builder && addgroup builder abuild"
+builder_uid=$(/alpine/enter-chroot -u builder id -u)
+builder_gid=$(/alpine/enter-chroot -u builder id -g)
 build_err=0
 for i in */APKBUILD; do
 	pushd "$(dirname "$i")"
-	chmod 777 .
+	chown -R $builder_uid:$builder_gid .
 	set +e
 	/alpine/enter-chroot -u builder bash -c "abuild -Rk"
 	if [ "$?" == "0" ]; then
