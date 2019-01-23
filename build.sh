@@ -19,6 +19,7 @@ EOF
 
 # Mount the web server's filesystem
 mount_point="/alpine/home/builder/packages/alpine-repo/$ARCH"
+mkdir -p /root/.ssh
 set +x
 echo "$DEPLOYKEY" | base64 -d > /root/.ssh/id_ed25519
 set -x
