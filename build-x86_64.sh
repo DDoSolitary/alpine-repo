@@ -1,0 +1,3 @@
+QEMU_SYSTEM=qemu-system-x86_64
+QEMU_CONSOLE=console=ttyS0
+DEVICE_SUFFIX=pci

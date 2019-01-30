@@ -1,61 +1,60 @@
-#!/bin/bash
-set -ex
+#!/bin/bash -e
 
-# Install an Alpine Linux chroot environment
-wget https://raw.githubusercontent.com/DDoSolitary/alpine-chroot-install/master/alpine-chroot-install
-chmod +x alpine-chroot-install
-./alpine-chroot-install -b edge -p "alpine-sdk bash"
+. build-$ARCH.sh
 
-# Install keys for signing packages
-keyname=DDoSolitary@gmail.com-00000000.rsa
-set +x
-echo "$PRIVKEY" | base64 -d > "$keyname"
-set -x
-openssl rsa -in "$keyname" -pubout -out "/alpine/etc/apk/keys/$keyname.pub"
-cat >> /alpine/etc/abuild.conf <<- EOF
-	PACKAGER="DDoSolitary <DDoSolitary@gmail.com>"
-	PACKAGER_PRIVKEY="$PWD/$keyname"
-EOF
-
-# Mount the web server's filesystem
-mount_point="/alpine/home/builder/packages/alpine-repo/$ARCH"
-mkdir -p /root/.ssh
-set +x
-echo "$DEPLOYKEY" | base64 -d > /root/.ssh/id_ed25519
-set -x
-chmod 600 /root/.ssh/id_ed25519
-cp known_hosts /root/.ssh/
-mkdir -p "$mount_point"
-sshfs -o allow_other \
-	"ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/packages/$ARCH" \
-	"$mount_point"
-
-# Start SSH server
-if [ "$APPVEYOR_SSH_BLOCK" == "true" ]; then
-	su -m appveyor -c "curl -sflL https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-ssh.sh | bash -e"
+curl -O http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/$ARCH/netboot/vmlinuz-vanilla
+curl -O http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/$ARCH/netboot/initramfs-vanilla
+if ${DOWNLOAD_MODLOOP:-true}; then
+	curl -O http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/$ARCH/netboot/modloop-vanilla
 fi
 
-# Build the packages
-/alpine/enter-chroot bash -c "adduser -D builder && addgroup builder abuild"
-builder_uid=$(/alpine/enter-chroot -u builder id -u)
-builder_gid=$(/alpine/enter-chroot -u builder id -g)
+mkdir -p ~/.ssh
+ssh-keygen -t ed25519 -N "" -C "" -f ~/.ssh/id_ed25519
+mv ~/.ssh/id_ed25519.pub .
+python3 -m http.server -b 127.0.0.1 8000 &
+
+qemu-img create -f qcow2 disk.qcow2 20G
+sudo $QEMU_SYSTEM $QEMU_ARGS -m 2G -kernel ${QEMU_KERNEL:-vmlinuz-vanilla} -initrd initramfs-vanilla -append "$QEMU_CONSOLE ip=dhcp alpine_repo=http://dl-cdn.alpinelinux.org/alpine/edge/main/ modloop=http://10.0.2.100/modloop-vanilla ssh_key=http://10.0.2.100/id_ed25519.pub" -drive id=vda,if=none,file=disk.qcow2 -device virtio-blk-$DEVICE_SUFFIX,drive=vda -netdev "user,id=eth0,hostfwd=:127.0.0.1:2200-:22,guestfwd=:10.0.2.100:80-cmd:nc 127.0.0.1 8000" -device virtio-net-$DEVICE_SUFFIX,netdev=eth0 -device virtio-rng-$DEVICE_SUFFIX -nographic &
+
+while [ "$(ssh -o StrictHostKeyChecking=no -p 2200 root@127.0.0.1 "echo test" 2> /dev/null)" != test ]; do sleep 1; done
+ssh="ssh -p 2200 root@127.0.0.1"
+$ssh "ntpd -nqp time.google.com"
+$ssh "apk add e2fsprogs sshfs"
+$ssh "mkfs.ext4 /dev/vda"
+$ssh "mount -t ext4 /dev/vda /mnt"
+$ssh "mkdir /mnt/etc"
+$ssh "cp /etc/resolv.conf /mnt/etc/"
+$ssh "mkdir /mnt/etc/apk"
+$ssh "cp -r /etc/apk/keys /mnt/etc/apk/"
+$ssh "printf 'http://dl-cdn.alpinelinux.org/alpine/edge/main/\nhttp://dl-cdn.alpinelinux.org/alpine/edge/community/\n' > /mnt/etc/apk/repositories"
+$ssh "apk --root /mnt --initdb --update-cache add alpine-base alpine-sdk"
+$ssh "mount -t proc none /mnt/proc"
+$ssh "mount --rbind /sys /mnt/sys"
+$ssh "mount --rbind /dev /mnt/dev"
+$ssh "chroot /mnt adduser -D builder"
+$ssh "chroot /mnt addgroup builder abuild"
+function ssh_builder {
+	$ssh "chroot /mnt su - builder -c '$1'"
+}
+keyname=DDoSolitary@gmail.com-00000000.rsa
+echo $PRIVKEY | base64 -d | ssh_builder "cat > $keyname"
+echo $PRIVKEY | base64 -d | openssl rsa -pubout | $ssh "cat > /mnt/etc/apk/keys/$keyname.pub"
+$ssh "cat >> /mnt/etc/abuild.conf" <<- EOF
+	PACKAGER="DDoSolitary <DDoSolitary@gmail.com>"
+	PACKAGER_PRIVKEY="/home/builder/$keyname"
+EOF
+echo $DEPLOYKEY | base64 -d | $ssh "cat > .ssh/id_ed25519"
+$ssh "chmod 600 .ssh/id_ed25519"
+$ssh "ssh-keyscan web.sourceforge.net > .ssh/known_hosts"
+ssh_builder "mkdir -p packages/alpine-repo/$ARCH"
+$ssh "modprobe fuse"
+$ssh "sshfs -o allow_other ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/packages/$ARCH /mnt/home/builder/packages/alpine-repo/$ARCH"
+ssh_builder "mkdir alpine-repo"
 build_err=0
-for i in */APKBUILD; do
-	pushd "$(dirname "$i")"
-	chown -R $builder_uid:$builder_gid .
-	set +e
-	/alpine/enter-chroot -u builder bash -c "abuild -Rk"
-	if [ "$?" == "0" ]; then
-		set -e
-		/alpine/enter-chroot -u builder bash -c "abuild cleanoldpkg"
-	else
-		set -e
+for i in $(cat build-list); do
+	tar cz $i | ssh_builder "cd alpine-repo && tar xz"
+	if ! ssh_builder "cd alpine-repo/$i && abuild -Rk && abuild cleanoldpkg"; then
 		build_err=1
 	fi
-	popd
 done
-
-# Unmount the web server's filesystem
-fusermount -u "$mount_point"
-
-exit "$build_err"
+exit $build_err

@@ -1,0 +1,2 @@
+QEMU_SYSTEM=qemu-system-s390x
+DEVICE_SUFFIX=ccw
