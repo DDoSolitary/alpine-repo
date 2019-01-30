@@ -15,13 +15,14 @@ builddir="$srcdir/obfs4-$pkgname-$pkgver/$pkgname"
 prepare() {
 	cd "$srcdir"
 	mkdir .gopath
+	export GOPATH="$srcdir/.gopath"
+	cd "$builddir"
+	go get -d -v
 }
 
 build() {
-	export GOPATH="$srcdir/.gopath"
 	cd "$builddir"
-	go get -d
-	go build -o obfs4proxy
+	go build -o obfs4proxy -v
 }
 
 package() {

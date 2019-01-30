@@ -16,13 +16,14 @@ builddir="$srcdir/$pkgname-$pkgver"
 prepare() {
 	cd "$srcdir"
 	mkdir .gopath
+	export GOPATH="$srcdir/.gopath"
+	cd "$builddir"
+	go get -d -v
 }
 
 build() {
-	export GOPATH="$srcdir/.gopath"
 	cd "$builddir"
-	go get -d
-	go build -o dingo
+	go build -o dingo -v
 }
 
 package() {

@@ -15,16 +15,18 @@ prepare() {
 	mkdir .gopath
 	export GOPATH="$srcdir/.gopath"
 	git clone https://git.torproject.org/pluggable-transports/meek.git
-	cd "$pkgname"
+	cd "$builddir"
 	git checkout "$pkgver"
+	cd "$builddir/meek-server"
+	go get -d -v
+	cd "$builddir/meek-client"
+	go get -d -v
 }
 
 build() {
 	cd "$builddir/meek-server"
-	go get -d
 	make all
 	cd "$builddir/meek-client"
-	go get -d
 	make all
 }
 

@@ -15,12 +15,13 @@ prepare() {
 	cd "$srcdir"
 	mkdir .gopath
 	export GOPATH="$srcdir/.gopath"
+	cd "$builddir"
+	go get -d -v
 }
 
 build() {
 	cd "$builddir"
-	go get -d
-	go build -o v2ray-plugin
+	go build -o v2ray-plugin -v
 }
 
 package() {
