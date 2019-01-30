@@ -11,6 +11,7 @@ environment:
     - ARCH: aarch64
     - ARCH: armhf
     - ARCH: ppc64le
+    - ARCH: s390x
 install:
   - sh: sudo apt-get update
   - sh: sudo apt-get install -y qemu-system qemu-utils netcat
