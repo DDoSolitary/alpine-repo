@@ -23,6 +23,11 @@ if [ "$APPVEYOR_SSH_BLOCK" == "true" ]; then
 fi
 
 ssh="ssh -p 2200 root@127.0.0.1"
+if [ "$ARCH" == s390x ]; then
+	for i in $(seq 6); do
+		$ssh "ln -sf zero /dev/tty$i"
+	done
+fi
 $ssh "ntpd -nqp time.google.com"
 $ssh "apk add e2fsprogs sshfs"
 $ssh "mkfs.ext4 /dev/vda"
