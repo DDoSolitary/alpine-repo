@@ -17,6 +17,11 @@ qemu-img create -f qcow2 disk.qcow2 20G
 sudo $QEMU_SYSTEM $QEMU_ARGS -m 2G -kernel ${QEMU_KERNEL:-vmlinuz-vanilla} -initrd initramfs-vanilla -append "$QEMU_CONSOLE ip=dhcp alpine_repo=http://dl-cdn.alpinelinux.org/alpine/edge/main/ modloop=http://10.0.2.100/modloop-vanilla ssh_key=http://10.0.2.100/id_ed25519.pub" -drive id=vda,if=none,file=disk.qcow2 -device virtio-blk-$DEVICE_SUFFIX,drive=vda -netdev "user,id=eth0,hostfwd=:127.0.0.1:2200-:22,guestfwd=:10.0.2.100:80-cmd:nc 127.0.0.1 8000" -device virtio-net-$DEVICE_SUFFIX,netdev=eth0 -device virtio-rng-$DEVICE_SUFFIX -nographic &
 
 while [ "$(ssh -o StrictHostKeyChecking=no -p 2200 root@127.0.0.1 "echo test" 2> /dev/null)" != test ]; do sleep 1; done
+
+if [ "$APPVEYOR_SSH_BLOCK" == "true" ]; then
+	su -m appveyor -c "curl -sflL https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-ssh.sh | bash -e"
+fi
+
 ssh="ssh -p 2200 root@127.0.0.1"
 $ssh "ntpd -nqp time.google.com"
 $ssh "apk add e2fsprogs sshfs"
