@@ -1,4 +1,4 @@
-sudo apt-get install -y build-essential gcc-powerpc64le-linux-gnu bison flex bc libssl-dev squashfs-tools
+sudo apt-get install -y -qq build-essential gcc-powerpc64le-linux-gnu bison flex bc libssl-dev squashfs-tools > /dev/null
 curl -O http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/ppc64le/netboot/modloop-vanilla
 unsquashfs -d lib modloop-vanilla
 rm modloop-vanilla
@@ -9,7 +9,7 @@ kverm=$(echo $kver | cut -d "." -f 1)
 kvern=$(echo $kver | cut -d "." -f 2)
 curl https://cdn.kernel.org/pub/linux/kernel/v$kverm.x/linux-$kverm.$kvern.tar.xz | tar xJ
 cd linux-$kverm.$kvern
-curl https://cdn.kernel.org/pub/linux/kernel/v$kverm.x/patch-$kver.xz | unxz -c | patch -Np1
+curl https://cdn.kernel.org/pub/linux/kernel/v$kverm.x/patch-$kver.xz | unxz -c | patch -Nsp1
 curl -o .config https://git.alpinelinux.org/aports/plain/main/linux-vanilla/config-vanilla.ppc64le?h=3.8-stable
 sed -i "s/.*\(CONFIG_HW_RANDOM_VIRTIO\).*/\1=m/" .config
 curl http://dl-cdn.alpinelinux.org/alpine/v3.8/main/ppc64le/linux-vanilla-dev-$kver-r$krel.apk | tar xz --warning=none --strip=3 usr/src/linux-headers-$kver_full/Module.symvers
