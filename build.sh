@@ -23,6 +23,7 @@ if [ "$ARCH" == s390x ]; then
 		$ssh "ln -sf zero /dev/tty$i"
 	done
 fi
+$ssh "ip addr add 127.0.0.1/8 dev lo || true"
 $ssh "ntpd -nqp time.google.com"
 $ssh "apk add e2fsprogs sshfs"
 $ssh "mkfs.ext4 /dev/vda"
