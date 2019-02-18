@@ -1,6 +1,6 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=libbloom
-pkgver=1.5
+pkgver=1.6
 pkgrel=0
 pkgdesc="A simple and small bloom filter implementation in plain C"
 url="https://github.com/jvirkki/libbloom"
@@ -28,4 +28,4 @@ package() {
 	ln -s libbloom.so.$pkgver "$pkgdir"/usr/lib/$(objdump -p build/libbloom.so.$pkgver | grep SONAME | awk '{ print $2 }')
 }
 
-sha512sums="0dd69e3ee102e5808ba4350c71d212876db56235e263f8d5a66d6c3616d2e51cc18b5ca3a5a946d79c12751d9cc5667f7c633d77645c4b88a4d16ea344b51929  libbloom-1.5.tar.gz"
+sha512sums="3dd4343d68def05800dd6ffc5a05b05d0702a8c0c9f0a397f105d4389c88a7bffa419734aeb4fa4e1a2c418b12a8192fa27ddcbaeee72906450d64cbfd64db15  libbloom-1.6.tar.gz"
