@@ -21,6 +21,6 @@ cd ..
 depmod -b . $kver_full
 mksquashfs lib modloop-vanilla
 
-QEMU_SYSTEM=qemu-system-ppc64
+QEMU_SYSTEM=qemu-system-ppc64le
 KERNEL_ARGS="console=hvc0"
 DEVICE_SUFFIX=pci
