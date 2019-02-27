@@ -24,4 +24,3 @@ mksquashfs lib modloop-vanilla
 QEMU_SYSTEM=qemu-system-ppc64
 KERNEL_ARGS="console=hvc0"
 DEVICE_SUFFIX=pci
-DOWNLOAD_MODLOOP=false
