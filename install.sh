@@ -1,13 +1,15 @@
 #!/bin/bash -e
 
-sudo bash -c "echo 'deb [trusted=yes] https://deb.debian.org/debian unstable main contrib' > /etc/apt/sources.list.d/debian-unstable.list"
-sudo bash -c "cat > /etc/apt/preferences.d/debian-unstable" <<- EOF
+rel_name=disco
+sudo bash -c "echo 'deb http://archive.ubuntu.com/ubuntu/ $rel_name main universe' > /etc/apt/sources.list.d/ubuntu-$rel_name.list"
+sudo bash -c "cat > /etc/apt/preferences.d/ubuntu-$rel_name" <<- EOF
 	Package: *
-	Pin: release n=unstable
+	Pin: release n=$rel_name
 	Pin-Priority: -1
 EOF
-sudo apt-get update -qq
-sudo apt-get install -y -qq netcat > /dev/null
+export DEBIAN_FRONTEND=noninteractive
+sudo -E apt-get update -qq
+sudo -E apt-get install -y -qq netcat > /dev/null
 
 case $ARCH in
 x86|x86_64)
@@ -20,8 +22,8 @@ ppc64le)
 	suffix=ppc
 	;;
 s390x)
-	suffix=misc
+	suffix=s390x
 	;;
 esac
 	
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -t unstable -y -qq qemu-system-$suffix qemu-utils > /dev/null
+sudo -E apt-get install -t $rel_name -y -qq qemu-system-$suffix qemu-utils > /dev/null
