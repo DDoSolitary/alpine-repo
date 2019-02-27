@@ -2,11 +2,9 @@
 
 . build-$ARCH.sh
 
-curl -O http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/$ARCH/netboot/vmlinuz-vanilla
-curl -O http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/$ARCH/netboot/initramfs-vanilla
-if [ ! -f modloop-vanilla ]; then
-	curl -O http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/$ARCH/netboot/modloop-vanilla
-fi
+curl -O http://dl-cdn.alpinelinux.org/alpine/edge/releases/$ARCH/netboot/vmlinuz-vanilla
+curl -O http://dl-cdn.alpinelinux.org/alpine/edge/releases/$ARCH/netboot/initramfs-vanilla
+curl -O http://dl-cdn.alpinelinux.org/alpine/edge/releases/$ARCH/netboot/modloop-vanilla
 
 mkdir -p ~/.ssh
 ssh-keygen -t ed25519 -N "" -C "" -f ~/.ssh/id_ed25519
