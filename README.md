@@ -6,36 +6,28 @@ This is an unofficial repository for Alpine Linux.
 
 # How to use
 
-To use the pre-built packages, follow these steps:
-
-1. Make sure `ca-certificates` and `libressl` has been installed.
-
-```
-apk add ca-certificates libressl
-```
-
-2. Trust my public key.
+1. Trust my public key.
 
 ```
 wget -P /etc/apk/keys https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub
 ```
 This public key is signed by my GPG key. If you want to verify the public key, you can download the signature from [here](https://alpine-repo.sourceforge.io/DDoSolitary@gmail.com-00000000.rsa.pub.sig), and get my public key from the SKS keyservers. The fingerprint of my GPG key is `688E1D093C3638F588890D4450268311C7AD3F62`.
 
-3. I only build packages for the edge releases, so [upgrade to it](https://wiki.alpinelinux.org/wiki/Upgrading_Alpine#Upgrading_to_Edge) if you're using stable releases.
+2. I only build packages for the edge releases, so [upgrade to it](https://wiki.alpinelinux.org/wiki/Upgrading_Alpine#Upgrading_to_Edge) if you're using stable releases.
 
-4. Add this line to `/etc/apk/repositories`
+3. Add this line to `/etc/apk/repositories`
 
 ```
 https://alpine-repo.sourceforge.io/packages
 ```
 
-5. Update your local index.
+4. Update your local index.
 
 ```
 apk update
 ```
 
-6. **Enjoy it!**
+5. **Enjoy it!**
 
 # Limitations
 
