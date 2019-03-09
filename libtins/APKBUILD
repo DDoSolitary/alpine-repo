@@ -1,6 +1,6 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=libtins
-pkgver=4.1
+pkgver=4.2
 pkgrel=0
 pkgdesc="High-level, multiplatform C++ network packet sniffing and crafting library"
 url="https://github.com/mfontanini/libtins"
@@ -8,7 +8,6 @@ arch="all"
 license="BSD-2-Clause"
 makedepends="cmake libpcap-dev libressl-dev boost-dev"
 subpackages="$pkgname-dev"
-source="radiotap-buffer-overflow.patch"
 builddir="$srcdir/$pkgname/build"
 
 prepare() {
@@ -17,7 +16,6 @@ prepare() {
 	cd "$pkgname"
 	git checkout "v$pkgver"
 	git submodule update --init --recursive
-	git apply "$srcdir/radiotap-buffer-overflow.patch"
 	mkdir build
 }
 
@@ -36,5 +34,3 @@ package() {
 	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 }
-
-sha512sums="ec9c884ef85e0458830abeb93f9ddd994fd827f6a701912c0f9c4d58cab1063fa64e9ad1a22a8dc938b31c21b44c24f278970ead1e1296079a4b9322e1b71108  radiotap-buffer-overflow.patch"
