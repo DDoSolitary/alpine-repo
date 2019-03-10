@@ -8,6 +8,7 @@ arch="all"
 license="BSD-2-Clause"
 makedepends="cmake libpcap-dev libressl-dev boost-dev"
 subpackages="$pkgname-dev"
+source="https://github.com/mfontanini/libtins/pull/333.patch"
 builddir="$srcdir/$pkgname/build"
 
 prepare() {
@@ -16,6 +17,7 @@ prepare() {
 	cd "$pkgname"
 	git checkout "v$pkgver"
 	git submodule update --init --recursive
+	git apply "$srcdir/333.patch"
 	mkdir build
 }
 
@@ -34,3 +36,5 @@ package() {
 	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 }
+
+sha512sums="14ba9329dbc5f9181d0bb5c56c9a31b6c33bb6047ae9a6c41fd6243cca7bb92b9bfc66ea684c06ec2597bfa8f15ce59d0143971e5c6cf988934af5e753c43165  333.patch"
