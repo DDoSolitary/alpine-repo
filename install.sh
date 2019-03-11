@@ -15,7 +15,7 @@ case $ARCH in
 x86|x86_64)
 	suffix=x86
 	;;
-armhf|aarch64)
+armhf|armv7|aarch64)
 	suffix=arm
 	;;
 ppc64le)
