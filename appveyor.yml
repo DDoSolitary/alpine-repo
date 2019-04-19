@@ -1,4 +1,4 @@
-﻿image: ubuntu1804
+﻿image: ubuntu
 environment:
   APPVEYOR_SSH_KEY: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDUIBQ3TVjMLg87D/W/t16t9SBsQC/x5Q0vgO7bBcdYxW5HOiYjv0tlRUJSZO+qMP2ZxWUd1q9Y4Ck2oCZuN+UUCjUk5wQN34WQu5aeOwJl8ha3oK+DJzTaNBnMluEk2Ylp9uTg6cJhqOJFDvg8YDs4hERxWS9rYfC4H1iSc/4knCgSZAZ/qZMAjvVvlpJKfcGiPHVyqms3znkWnQOgilCJj/LGPfdY3aJaWIhR2nbrD5OsiLXezbrm3Gpvbxh4WRE1CdvPaTnm0suoRLZ9pXC9Af9MfIgRi18/xiv7AHKDvBERRFYatFdX6WYHMjzTDOlFsm4hcN1fDML9vYhYl0clM4596OOGnF8c4+XfsB850kwtJ0ajZsf90kRA4Bob9KriJkbEk3Q2W4ctgow0HGx+0GyiUihkN4egNMdfMUSH3+qzhTH3Xdm4dcaGIFJsCeR7ilNmOI6LDEo/kt/vwy1KA7BYzAYsQbwT79cimVGo5EmnfvBAY7LnkU2RcRgPOVNxI+mYj/w1SpjC/831BNbRBpJAgtjvwgkA/LvBn1oGgiVptp52ej9P7gIty23FZtgMyd8H0YmGNheeQOmujoghFYCc4hfjYDwHSr4ZzVJ2Zh5kF/Jv6fTA0xlgr81uGs8or32aeeQCcU6+N2BGamrfr2ii7qccx45PkcnBAyMriw==
   DEPLOYKEY:
@@ -13,7 +13,7 @@ environment:
     - ARCH: armhf
     - ARCH: ppc64le
     - ARCH: s390x
-install:
-  - sh: ./install.sh
+services:
+  - docker
 build_script:
-  - sh: ./build.sh
+  - sh: ./run-docker.sh
