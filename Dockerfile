@@ -51,6 +51,7 @@ RUN eval $(./configure.sh $ARCH) && \
 	$ssh "ssh-keyscan web.sourceforge.net > /mnt/home/builder/.ssh/known_hosts" && \
 	$ssh "install -d -o 1000 -g 1000 \
 		/mnt/home/builder/packages/alpine-repo/$ARCH" && \
+	$ssh "install -d -o 1000 -g 1000 /mnt/home/builder/src" && \
 	$ssh "umount /mnt" && \
 	killall qemu-system-$QEMU_ARCH python3 && \
 	rm id id.pub *-vanilla && \
