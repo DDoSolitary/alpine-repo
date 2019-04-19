@@ -56,7 +56,7 @@ RUN eval $(./configure.sh $ARCH) && \
 	killall qemu-system-$QEMU_ARCH python3 && \
 	rm id id.pub *-vanilla && \
 	apk del qemu-img netcat-openbsd python3 openssh && \
-	([ -n "$FW_URL" ] && wget $FW_URL || true)
+	([ -n "$FW_URL" ] && wget $FW_URL || [ -z "$FW_URL" ])
 EXPOSE 22
 ENV ARCH=$ARCH
 ENV QEMU_MEM=$QEMU_MEM
