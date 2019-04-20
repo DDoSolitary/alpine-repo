@@ -28,7 +28,9 @@ RUN eval $(./configure.sh $ARCH) && \
 		-o StrictHostKeyChecking=no \
 		127.0.0.1" && \
 	(while [ "$($ssh echo test 2> /dev/null)" != "test" ]; do sleep 1; done) && \
-	$ssh "sed -i 's/(local kernel_opts=\"quiet)\"/\1 console=$QEMU_CONSOLE_DEV\"/' /sbin/setup-disk" && \
+	$ssh "sed -i \
+		's/\(local kernel_opts=\"quiet\)\"/\1 console=$QEMU_CONSOLE_DEV\"/' \
+		/sbin/setup-disk" && \
 	$ssh "USE_EFI=$([ -n "$FW_URL" ] && echo 1) ERASE_DISKS=/dev/vda \
 		setup-disk -m sys -s 0 /dev/vda" && \
 	part_no=$(if [ "$ARCH" == "ppc64le" ]; then echo 3; else echo 2; fi) && \
@@ -40,6 +42,8 @@ RUN eval $(./configure.sh $ARCH) && \
 	$ssh "chroot /mnt passwd -d builder" && \
 	$ssh "chroot /mnt addgroup builder abuild" && \
 	$ssh 'echo "builder ALL=(ALL) NOPASSWD:ALL" >> /mnt/etc/sudoers' && \
+	$ssh "echo http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
+		>> /mnt/etc/apk/repositories" && \
 	$ssh "echo PasswordAuthentication yes >> /mnt/etc/ssh/sshd_config" && \
 	$ssh "echo PermitEmptyPasswords yes >> /mnt/etc/ssh/sshd_config" && \
 	echo 'PACKAGER="DDoSolitary <DDoSolitary@gmail.com>"' \
@@ -51,7 +55,7 @@ RUN eval $(./configure.sh $ARCH) && \
 	$ssh "ssh-keyscan web.sourceforge.net > /mnt/home/builder/.ssh/known_hosts" && \
 	$ssh "install -d -o 1000 -g 1000 \
 		/mnt/home/builder/packages/alpine-repo/$ARCH" && \
-	$ssh "install -d -o 1000 -g 1000 /mnt/home/builder/src" && \
+	$ssh "install -d -o 1000 -g 1000 /mnt/home/builder/alpine-repo" && \
 	$ssh "umount /mnt" && \
 	killall qemu-system-$QEMU_ARCH python3 && \
 	rm id id.pub *-vanilla && \
