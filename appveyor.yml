@@ -1,4 +1,4 @@
-﻿image: ubuntu1804
+﻿image: ubuntu
 environment:
   DOCKER_PWD:
     secure: Lh+3bZX9Z9alhx3rj6EJv98AaSWob8wVeLeqp3Qb3HD2lJEhndqkq2o1WWAzLSXngQecEYQvzkvedue227Vgtw==
