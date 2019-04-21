@@ -14,7 +14,7 @@ builddir="$srcdir/$_pkgname-$pkgver"
 
 prepare() {
 	cd "$builddir"
-	patch -Np1 -i "$srcdir/backtrace.patch"
+	patch -Np1 -i "$srcdir/alpine.patch"
 }
 
 build() {
