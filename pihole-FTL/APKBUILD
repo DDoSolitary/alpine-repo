@@ -1,8 +1,8 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=pihole-FTL
 _pkgname=FTL
-pkgver=4.2.3
-pkgrel=1
+pkgver=4.3.1
+pkgrel=0
 pkgdesc="FTLDNS™ (pihole-FTL) provides an interactive API and also generates statistics for Pi-hole®'s Web interface."
 url="https://github.com/pi-hole/FTL"
 arch="all"
@@ -28,5 +28,5 @@ package() {
 	setcap CAP_NET_BIND_SERVICE,CAP_NET_RAW,CAP_NET_ADMIN+eip "$pkgdir/usr/bin/pihole-FTL"
 }
 
-sha512sums="79fb6f60dfbb8b157c2a89b3c34cc0eba5548e5031c4a97af68cb3edbb2041f2cac02a2c834fb74088de4d55bb78154467359d83322dc3c157af46ba250c761c  FTL-4.2.3.tar.gz
+sha512sums="e9c77539f6da11b508a6917a05dc7273fa6a233524f6befe1073df336d40f9327a4be8cb7953ebbfa18e8f4ac5e72d087bda37d58c98a2b3223341e717fdb7f5  FTL-4.3.1.tar.gz
 377b68a5f95a34de71b54b40849084559cae8884ca91eea94ff4cae675b450cde72d8f96c845ede0afce2f9ce869e15d63a3647df256a5252a0e72083f78211b  alpine.patch"
