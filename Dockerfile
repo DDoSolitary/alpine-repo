@@ -51,6 +51,7 @@ RUN eval $(./configure.sh $ARCH) && \
 	$ssh "echo PACKAGER_PRIVKEY=/home/builder/DDoSolitary@gmail.com-00000000.rsa \
 		>> /mnt/etc/abuild.conf" && \
 	$ssh "echo fuse >> /mnt/etc/modules" && \
+	$ssh "echo user_allow_other >> /mnt/etc/fuse.conf" && \
 	$ssh "install -d -o 1000 -g 1000 /mnt/home/builder/.ssh" && \
 	$ssh "ssh-keyscan web.sourceforge.net > /mnt/home/builder/.ssh/known_hosts" && \
 	$ssh "install -d -o 1000 -g 1000 \
