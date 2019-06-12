@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.9
 ARG ARCH
 ARG QEMU_MEM=1G
 ADD configure.sh /
