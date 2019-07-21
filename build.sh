@@ -3,7 +3,6 @@
 sudo apk upgrade
 keyname="$(basename ~/*.rsa)"
 sudo openssl rsa -pubout -in ~/"$keyname" -out "/etc/apk/keys/$keyname.pub"
-if [ "$ARCH" == "s390x" ]; then sudo chmod 666 /dev/fuse; fi
 sshfs -o allow_root \
 	ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/packages/$ARCH \
 	~/packages/alpine-repo/$ARCH
