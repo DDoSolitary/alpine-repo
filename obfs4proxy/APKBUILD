@@ -1,6 +1,6 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=obfs4proxy
-pkgver=0.0.8
+pkgver=0.0.11
 pkgrel=0
 pkgdesc="The obfourscator - a pluggable transport proxy written in Go"
 url="https://github.com/Yawning/obfs4"
@@ -32,4 +32,4 @@ package() {
 	install -Dm644 ../doc/obfs4proxy.1 "$pkgdir/usr/share/man/man1/obfs4proxy.1"
 }
 
-sha512sums="9f5de3002e3109eff4b35bfe7664651562868691c8400f21ed48b53d66b141e8c5da6e6520c5abcc0e42cba959b5de62882a343d435082df24315e90bdb79162  obfs4proxy-0.0.8.tar.gz"
+sha512sums="3eb50bc8067802f8260e0926999a659919e55cb34247f443f66a4852c9ceceacae361602a57ad1fd28a84e4ed54f3800c3258e67266eb23d45b1d09e31c5d869  obfs4proxy-0.0.11.tar.gz"
