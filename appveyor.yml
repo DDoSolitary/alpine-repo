@@ -2,6 +2,7 @@
 environment:
   DOCKER_PWD:
     secure: Lh+3bZX9Z9alhx3rj6EJv98AaSWob8wVeLeqp3Qb3HD2lJEhndqkq2o1WWAzLSXngQecEYQvzkvedue227Vgtw==
+  ALPINE_HOST: edge
   matrix:
     - ARCH: x86_64
     - ARCH: x86
@@ -9,10 +10,11 @@ environment:
     - ARCH: armv7
     - ARCH: armhf
     - ARCH: ppc64le
+      ALPINE_HOST: 3.8
     - ARCH: s390x
 services:
   - docker
 build_script:
-  - sh: docker build -t ddosolitary/alpine-builder:$ARCH --build-arg ARCH=$ARCH .
+  - sh: docker build -t ddosolitary/alpine-builder:$ARCH --build-arg ARCH=$ARCH --build-arg ALPINE_HOST=$ALPINE_HOST .
   - sh: docker login -u ddosolitary -p "$DOCKER_PWD"
   - sh: docker push ddosolitary/alpine-builder:$ARCH

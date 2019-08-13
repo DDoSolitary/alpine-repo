@@ -1,4 +1,5 @@
-FROM alpine:3.9
+ARG ALPINE_HOST=edge
+FROM alpine:$ALPINE_HOST
 ARG ARCH
 ARG QEMU_MEM=1G
 ADD configure.sh /
