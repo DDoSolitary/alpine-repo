@@ -36,7 +36,7 @@ RUN eval $(./configure.sh $ARCH) && \
 		setup-disk -m sys -s 0 /dev/vda" && \
 	part_no=$(if [ "$ARCH" == "ppc64le" ]; then echo 3; else echo 2; fi) && \
 	$ssh "mount /dev/vda$part_no /mnt" && \
-	$ssh "apk add --root /mnt alpine-sdk sshfs" && \
+	$ssh "apk add --root /mnt alpine-sdk sshfs fuse3" && \
 	$ssh "setup-interfaces -a -p /mnt" && \
 	$ssh "ln -s /etc/init.d/ntpd /mnt/etc/runlevels/default/ntpd" && \
 	$ssh "chroot /mnt adduser -D builder" && \
