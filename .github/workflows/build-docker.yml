@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@master
-        run: |
+      - run: |
           docker build -t ddosolitary/alpine-builder:${{ matrix.arch }} --build-arg ARCH=${{ matrix.arch }} --build-arg ALPINE_HOST=${{ matrix.host }} .
           docker login -u ddosolitary -p '${{ secrets.DOCKER_PWD }}'
           docker push ddosolitary/alpine-builder:${{ matrix.arch }}
