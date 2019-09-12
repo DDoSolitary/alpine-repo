@@ -1,0 +1,32 @@
+on:
+  push:
+    branches:
+      - docker
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86_64, x86, aarch64, armv7, armhf, ppc64le, s390x]
+        include:
+          - arch: x86_64
+            host: edge
+          - arch: x86
+            host: edge
+          - arch: aarch64
+            host: edge
+          - arch: armv7
+            host: edge
+          - arch: armhf
+            host: edge
+          - arch: ppc64le
+            host: 3.8
+          - arch: s390x
+            host: edge
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+        run: |
+          docker build -t ddosolitary/alpine-builder:${{ matrix.arch }} --build-arg ARCH=${{ matrix.arch }} --build-arg ALPINE_HOST=${{ matrix.host }} .
+          docker login -u ddosolitary -p '${{ secrets.DOCKER_PWD }}'
+          docker push ddosolitary/alpine-builder:${{ matrix.arch }}
