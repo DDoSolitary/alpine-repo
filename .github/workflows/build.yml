@@ -2,6 +2,7 @@ on: push
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         arch: [x86_64, x86, aarch64, armv7, armhf, ppc64le, s390x]
     runs-on: ubuntu-18.04
