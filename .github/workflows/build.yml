@@ -1,0 +1,15 @@
+on: push
+jobs:
+  build:
+    strategy:
+      matrix:
+        arch: [x86_64, x86, aarch64, armv7, armhf, ppc64le, s390x]
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+      - env:
+          DEPLOYKEY: ${{ secrets.DEPLOYKEY }}
+          PRIVKEY: ${{ secrets.PRIVKEY }}
+          CI: true
+          ARCH: ${{ matrix.arch }}
+        run: ./run-docker.sh

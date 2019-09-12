@@ -1,6 +1,6 @@
 # alpine-repo
 
-[![Build Status](https://img.shields.io/appveyor/ci/ddosolitary/alpine-repo/master.svg)](https://ci.appveyor.com/project/DDoSolitary/alpine-repo)
+![Build Status](https://github.com/DDoSolitary/alpine-repo/workflows/.github/workflows/build.yml/badge.svg)
 
 This is an unofficial repository for Alpine Linux.
 
