@@ -30,7 +30,7 @@ RUN eval $(./configure.sh $ARCH) && \
 		127.0.0.1" && \
 	(while [ "$($ssh echo test 2> /dev/null)" != "test" ]; do sleep 1; done) && \
 	$ssh "sed -i \
-		's/\(local kernel_opts=\"quiet\)\"/\1 console=$QEMU_CONSOLE_DEV\"/' \
+		's/\(local kernel_opts=\"\)quiet\"/\1console=$QEMU_CONSOLE_DEV\"/' \
 		/sbin/setup-disk" && \
 	$ssh "USE_EFI=$([ -n "$FW_URL" ] && echo 1) ERASE_DISKS=/dev/vda \
 		setup-disk -m sys -s 0 /dev/vda" && \
