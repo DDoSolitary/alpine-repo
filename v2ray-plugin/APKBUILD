@@ -16,7 +16,6 @@ prepare() {
 	mkdir .gopath
 	export GOPATH="$srcdir/.gopath"
 	cd "$builddir"
-	rm go.mod
 	go get -d -v
 }
 
