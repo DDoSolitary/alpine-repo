@@ -22,6 +22,7 @@ prepare() {
 build() {
 	cd "$builddir"
 	go build -o v2ray-plugin -v
+	go clean -modcache
 }
 
 package() {

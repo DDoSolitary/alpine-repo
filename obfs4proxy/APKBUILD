@@ -23,6 +23,7 @@ prepare() {
 build() {
 	cd "$builddir"
 	go build -o obfs4proxy -v
+	go clean -modcache
 }
 
 package() {
