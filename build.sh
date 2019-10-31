@@ -16,5 +16,5 @@ for i in $(find -maxdepth 2 -path "*/APKBUILD" -exec dirname "{}" \;); do
 	abuild -Rk && abuild cleanoldpkg || build_err=1
 	cd ..
 done
-fusermount3 -u ~/packages/alpine-repo
+fusermount -u ~/packages/alpine-repo
 exit $build_err
