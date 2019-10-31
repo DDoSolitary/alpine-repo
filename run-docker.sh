@@ -17,7 +17,4 @@ ssh="ssh -p 2200 \
 while [ "$($ssh echo test 2> /dev/null)" != "test" ]; do sleep 1; done
 echo $PRIVKEY | base64 -d | $ssh "cat > DDoSolitary@gmail.com-00000000.rsa"
 tar c build.sh $(echo */APKBUILD | xargs dirname) | $ssh "tar xC alpine-repo"
-if [ "$APPVEYOR_SSH_BLOCK" == "true" ]; then
-	curl -sflL https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-ssh.sh | bash -e
-fi
 $ssh "cd alpine-repo && ARCH=$ARCH ./build.sh"
