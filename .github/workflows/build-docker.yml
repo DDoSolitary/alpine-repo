@@ -20,7 +20,7 @@ jobs:
           - arch: armhf
             host: edge
           - arch: ppc64le
-            host: edge
+            host: 3.8
           - arch: s390x
             host: edge
     runs-on: ubuntu-18.04
