@@ -36,17 +36,15 @@ RUN eval $(./configure.sh $ARCH) && \
 		setup-disk -m sys -s 0 /dev/vda" && \
 	part_no=$(if [ "$ARCH" == "ppc64le" ]; then echo 3; else echo 2; fi) && \
 	$ssh "mount /dev/vda$part_no /mnt" && \
-	$ssh "echo http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
-		>> /mnt/etc/apk/repositories" && \
-	$ssh "echo http://dl-cdn.alpinelinux.org/alpine/edge/testing/ \
-		>> /mnt/etc/apk/repositories" && \
-	$ssh "apk add --root /mnt alpine-base alpine-sdk s3fs-fuse" && \
+	$ssh "apk add --root /mnt alpine-sdk sshfs fuse3" && \
 	$ssh "setup-interfaces -a -p /mnt" && \
 	$ssh "ln -s /etc/init.d/ntpd /mnt/etc/runlevels/default/ntpd" && \
 	$ssh "chroot /mnt adduser -D builder" && \
 	$ssh "chroot /mnt passwd -d builder" && \
 	$ssh "chroot /mnt addgroup builder abuild" && \
 	$ssh 'echo "builder ALL=(ALL) NOPASSWD:ALL" >> /mnt/etc/sudoers' && \
+	$ssh "echo http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
+		>> /mnt/etc/apk/repositories" && \
 	$ssh "echo PasswordAuthentication yes >> /mnt/etc/ssh/sshd_config" && \
 	$ssh "echo PermitEmptyPasswords yes >> /mnt/etc/ssh/sshd_config" && \
 	echo 'PACKAGER="DDoSolitary <DDoSolitary@gmail.com>"' \
@@ -58,7 +56,7 @@ RUN eval $(./configure.sh $ARCH) && \
 	$ssh "install -d -o 1000 -g 1000 /mnt/home/builder/.ssh" && \
 	$ssh "ssh-keyscan web.sourceforge.net > /mnt/home/builder/.ssh/known_hosts" && \
 	$ssh "install -d -o 1000 -g 1000 \
-		/mnt/home/builder/packages/alpine-repo" && \
+		/mnt/home/builder/packages/alpine-repo/$ARCH" && \
 	$ssh "install -d -o 1000 -g 1000 /mnt/home/builder/alpine-repo" && \
 	$ssh "umount /mnt" && \
 	killall qemu-system-$QEMU_ARCH python3 && \
