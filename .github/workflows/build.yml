@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - env:
+          DEPLOYKEY: ${{ secrets.DEPLOYKEY }}
           PRIVKEY: ${{ secrets.PRIVKEY }}
-          S3FS_PWD: ${{ secrets.S3FS_PWD }}
           CI: true
           ARCH: ${{ matrix.arch }}
         run: ./run-docker.sh

@@ -3,18 +3,14 @@
 sudo apk upgrade
 keyname="$(basename ~/*.rsa)"
 sudo openssl rsa -pubout -in ~/"$keyname" -out "/etc/apk/keys/$keyname.pub"
-echo $S3FS_PWD > ~/s3fs_pwd
-chmod 600 ~/s3fs_pwd
-s3fs alpine-ddosolitary ~/packages/alpine-repo \
-	-o allow_other \
-	-o passwd_file="$HOME/s3fs_pwd" \
-	-o url=https://ewr1.vultrobjects.com/ \
-	-o use_path_request_style
+sshfs -o allow_root \
+	ddosolitary@web.sourceforge.net:/home/project-web/alpine-repo/htdocs/packages/$ARCH \
+	~/packages/alpine-repo/$ARCH
 build_err=0
 for i in $(find -maxdepth 2 -path "*/APKBUILD" -exec dirname "{}" \;); do
 	cd "$i"
 	abuild -Rk && abuild cleanoldpkg || build_err=1
 	cd ..
 done
-fusermount -u ~/packages/alpine-repo
+fusermount3 -u ~/packages/alpine-repo/$ARCH
 exit $build_err
