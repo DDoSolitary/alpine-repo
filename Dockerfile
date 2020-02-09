@@ -7,17 +7,17 @@ RUN eval $(./configure.sh $ARCH) && \
 	apk upgrade && \
 	apk add qemu-system-$QEMU_ARCH qemu-img netcat-openbsd python3 openssh && \
 	dl_url=http://dl-cdn.alpinelinux.org/alpine/edge/releases/$ARCH/netboot && \
-	wget $dl_url/vmlinuz-vanilla && \
-	wget $dl_url/initramfs-vanilla && \
-	wget $dl_url/modloop-vanilla && \
+	wget $dl_url/vmlinuz-$KERNEL_FLAVOR && \
+	wget $dl_url/initramfs-$KERNEL_FLAVOR && \
+	wget $dl_url/modloop-$KERNEL_FLAVOR && \
 	ssh-keygen -t ed25519 -N "" -C "" -f id && \
 	qemu-img create -f qcow2 disk.qcow2 20G && \
 	(python3 -m http.server -b 127.0.0.1 8000 &) && \
 	(qemu-system-$QEMU_ARCH $QEMU_ARGS -m $QEMU_MEM \
-		-kernel vmlinuz-vanilla -initrd initramfs-vanilla \
+		-kernel vmlinuz-$KERNEL_FLAVOR -initrd initramfs-$KERNEL_FLAVOR \
 		-append "console=$QEMU_CONSOLE_DEV ip=dhcp \
 			alpine_repo=http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
-			modloop=http://10.0.2.100/modloop-vanilla \
+			modloop=http://10.0.2.100/modloop-$KERNEL_FLAVOR \
 			ssh_key=http://10.0.2.100/id.pub" \
 		-drive id=vda,if=none,file=disk.qcow2 \
 		-device virtio-blk-$QEMU_DEV_SUFFIX,drive=vda \
@@ -60,7 +60,7 @@ RUN eval $(./configure.sh $ARCH) && \
 	$ssh "install -d -o 1000 -g 1000 /mnt/home/builder/alpine-repo" && \
 	$ssh "umount /mnt" && \
 	killall qemu-system-$QEMU_ARCH python3 && \
-	rm id id.pub *-vanilla && \
+	rm id id.pub *-$KERNEL_FLAVOR && \
 	apk del qemu-img netcat-openbsd python3 openssh && \
 	([ -n "$FW_URL" ] && wget $FW_URL || [ -z "$FW_URL" ])
 EXPOSE 22
