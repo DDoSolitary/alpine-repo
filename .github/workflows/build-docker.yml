@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [x86_64, x86, aarch64, armv7, armhf, ppc64le, s390x]
+        arch: [x86_64, x86, aarch64, armv7, ppc64le, s390x]
         include:
           - arch: x86_64
             host: edge
@@ -16,8 +16,6 @@ jobs:
           - arch: aarch64
             host: edge
           - arch: armv7
-            host: edge
-          - arch: armhf
             host: edge
           - arch: ppc64le
             host: 3.8
