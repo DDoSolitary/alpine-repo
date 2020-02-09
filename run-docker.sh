@@ -16,5 +16,5 @@ ssh="ssh -p 2200 \
 	builder@127.0.0.1"
 while [ "$($ssh echo test 2> /dev/null)" != "test" ]; do sleep 1; done
 echo $PRIVKEY | base64 -d | $ssh "cat > DDoSolitary@gmail.com-00000000.rsa"
-tar c build.sh $(echo */APKBUILD | xargs dirname) | $ssh "tar xC alpine-repo"
+tar c build.sh build-order $(dirname */APKBUILD) | $ssh "tar xC alpine-repo"
 $ssh "cd alpine-repo && ARCH=$ARCH ./build.sh"
