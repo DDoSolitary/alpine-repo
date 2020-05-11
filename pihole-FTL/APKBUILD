@@ -8,9 +8,14 @@ url="https://github.com/pi-hole/FTL"
 arch="all"
 license="EUPL-1.2"
 makedepends="gmp-dev nettle-dev nettle-static linux-headers libcap"
-source="$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
+source="$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz remove-werror.patch"
 options="!check"
 builddir="$srcdir/$_pkgname-$pkgver"
+
+prepare() {
+	cd "$builddir"
+	patch -Np1 -i remove-werror.patch
+}
 
 build() {
 	cd "$builddir"
@@ -22,4 +27,5 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="59b0448a37af218fb946f4ee76ce8ae5c08f86a52b90286df9288c1e0af86fb8730c0fd7f29d325da10c9ba4a7ffb7487e1003716225681c9ff14f7ef9f4800d  FTL-5.0.tar.gz"
+sha512sums="59b0448a37af218fb946f4ee76ce8ae5c08f86a52b90286df9288c1e0af86fb8730c0fd7f29d325da10c9ba4a7ffb7487e1003716225681c9ff14f7ef9f4800d  FTL-5.0.tar.gz
+2a2857b4eb3a2a083815553c4e630a688c4fd36b43ef06c11ec34bae1dbbff99d337959f04b5f5d84ef3976e46e4ced7d19fbb6f3625df63043fd9a98f841026 remove-werror.patch"
