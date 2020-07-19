@@ -8,13 +8,13 @@ url="https://github.com/pi-hole/FTL"
 arch="all"
 license="EUPL-1.2"
 makedepends="cmake libidn-dev gmp-dev nettle-dev nettle-static linux-headers libcap"
-source="$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz disable-werror-noreturn.patch setcap-destdir.patch"
+source="$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz wno-error.patch setcap-destdir.patch"
 options="!check"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 prepare() {
 	cd "$builddir"
-	patch -Np1 -i "$srcdir/disable-werror-noreturn.patch"
+	patch -Np1 -i "$srcdir/wno-error.patch"
 	patch -Np1 -i "$srcdir/setcap-destdir.patch"
 	mkdir build
 }
@@ -31,6 +31,6 @@ package() {
 }
 
 sha512sums="e8201f3d3fff0252a59029b770bbfd390d6afb51f10a1b37f77b20ac1a385567d7cc25690417406c8a74b808d8b07406eca052b8459fffc282623512c75d56bf  FTL-5.1.tar.gz
-f0686f35d7807b9069d1f8ef300702bcdf4960e42d2581576754ee514bd1af13e7b13f20d5af7acd72c46ff715b6553c9c1b2076ab0f54e4402ab189ae0930aa  disable-werror-noreturn.patch
+7a9e01d232160dc63d0a660ec1b6ba30ac01cf2ce45e53cd31ce3c0deb0577bda38a8aed4d78e053a96e139b531743ef8482946bd28167d077166b242b1d29e3  wno-error.patch
 6b5cc2660f8a236312963b238f215a7acdd51dacfd2cc9a972887b4b5ec3d838d6cccba3dced429a3e66e9bfc3e7d8f56f17194ab07378d8d5506e5f054466d4  setcap-destdir.patch"
 
