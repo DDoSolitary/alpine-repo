@@ -1,7 +1,7 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=pihole-FTL
 _pkgname=FTL
-pkgver=5.1
+pkgver=5.2
 pkgrel=0
 pkgdesc="FTLDNS™ (pihole-FTL) provides an interactive API and also generates statistics for Pi-hole®'s Web interface."
 url="https://github.com/pi-hole/FTL"
@@ -30,7 +30,7 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="e8201f3d3fff0252a59029b770bbfd390d6afb51f10a1b37f77b20ac1a385567d7cc25690417406c8a74b808d8b07406eca052b8459fffc282623512c75d56bf  FTL-5.1.tar.gz
+sha512sums="b7df299527fe218567996742929778c9bfe5bb315182d399ef7c089f95008b7b642c2a9a2fc39a3ed68d0d726dd799f8eb873d8a39def47bef89ebc2f923097e  FTL-5.2.tar.gz
 7a9e01d232160dc63d0a660ec1b6ba30ac01cf2ce45e53cd31ce3c0deb0577bda38a8aed4d78e053a96e139b531743ef8482946bd28167d077166b242b1d29e3  wno-error.patch
 6b5cc2660f8a236312963b238f215a7acdd51dacfd2cc9a972887b4b5ec3d838d6cccba3dced429a3e66e9bfc3e7d8f56f17194ab07378d8d5506e5f054466d4  setcap-destdir.patch"
 
