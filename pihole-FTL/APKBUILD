@@ -1,22 +1,19 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=pihole-FTL
 _pkgname=FTL
-pkgver=5.2
+pkgver=5.3.1
 pkgrel=1
 pkgdesc="FTLDNS™ (pihole-FTL) provides an interactive API and also generates statistics for Pi-hole®'s Web interface."
 url="https://github.com/pi-hole/FTL"
 arch="all"
 license="EUPL-1.2"
-makedepends="cmake libidn-dev gmp-dev nettle-dev nettle-static linux-headers libcap"
-source="$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz wno-error.patch setcap-destdir.patch musl-time64.patch"
+makedepends="cmake libidn-dev gmp-dev nettle-dev nettle-static readline-dev linux-headers libcap"
+source="$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
 options="!check"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 prepare() {
 	cd "$builddir"
-	patch -Np1 -i "$srcdir/wno-error.patch"
-	patch -Np1 -i "$srcdir/setcap-destdir.patch"
-	patch -Np1 -i "$srcdir/musl-time64.patch"
 	mkdir build
 }
 
@@ -31,8 +28,5 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="b7df299527fe218567996742929778c9bfe5bb315182d399ef7c089f95008b7b642c2a9a2fc39a3ed68d0d726dd799f8eb873d8a39def47bef89ebc2f923097e  FTL-5.2.tar.gz
-7a9e01d232160dc63d0a660ec1b6ba30ac01cf2ce45e53cd31ce3c0deb0577bda38a8aed4d78e053a96e139b531743ef8482946bd28167d077166b242b1d29e3  wno-error.patch
-6b5cc2660f8a236312963b238f215a7acdd51dacfd2cc9a972887b4b5ec3d838d6cccba3dced429a3e66e9bfc3e7d8f56f17194ab07378d8d5506e5f054466d4  setcap-destdir.patch
-083144d8b7cb1a15243459e00abd5c46fd0fe38abca863eec6acf4e379a9c1f90427ad094525030e161fa02f25fe3c29f2c09f5fe3354b9dc0eb3efd42da0e2e  musl-time64.patch"
+sha512sums="030980199f5aeab98e8fbae89447d4d314d37df2c24239380e44e9693da5fa250e5557d937793655a32a0d486553c9605d40fa6ee23081c709a93dda1d3f3d4f  FTL-5.3.1.tar.gz"
 
