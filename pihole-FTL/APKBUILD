@@ -8,13 +8,14 @@ url="https://github.com/pi-hole/FTL"
 arch="all"
 license="EUPL-1.2"
 makedepends="cmake libidn-dev gmp-dev nettle-dev nettle-static readline-dev linux-headers libcap"
-source="$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz gcc10.patch"
+source="$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz gcc10.patch werror.patch"
 options="!check"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 prepare() {
 	cd "$builddir"
 	patch -Np1 -i "$srcdir/gcc10.patch"
+	patch -Np1 -i "$srcdir/werror.patch"
 	mkdir build
 }
 
@@ -30,5 +31,6 @@ package() {
 }
 
 sha512sums="030980199f5aeab98e8fbae89447d4d314d37df2c24239380e44e9693da5fa250e5557d937793655a32a0d486553c9605d40fa6ee23081c709a93dda1d3f3d4f  FTL-5.3.1.tar.gz
-02a55170f0db66943047fea1ee56080350be21371dde8a3983291dd5af9e3f481129e40ee90a4ccc4a5b853041afe883b721b8686c8641536e47ad323eb58719  gcc10.patch"
+02a55170f0db66943047fea1ee56080350be21371dde8a3983291dd5af9e3f481129e40ee90a4ccc4a5b853041afe883b721b8686c8641536e47ad323eb58719  gcc10.patch
+62ae0a18588e1aac35d8cb381dc7a7caf5f6902dcdc0014f0f75baa8a8f4fd28ee355e2417e922cf983cbbaeee4f204bc9e34d53693b5d0fa9ab8eb97218da05  werror.patch"
 
