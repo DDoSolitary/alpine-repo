@@ -1,0 +1,18 @@
+diff -aur libdumb-0.9.3.orig/Makefile libdumb-0.9.3/Makefile
+--- a/Makefile	2012-02-06 23:51:26.000000000 +0100
++++ b/Makefile	2012-02-06 23:52:17.000000000 +0100
+@@ -231,10 +231,10 @@
+ endif
+ endif
+ 
+-CFLAGS_RELEASE := -Iinclude $(WFLAGS) $(OFLAGS) $(CFLAGS_EXTRA)
+-CFLAGS_DEBUG := -Iinclude $(WFLAGS) $(DBGFLAGS) $(CFLAGS_EXTRA)
++CFLAGS_RELEASE := -Iinclude $(WFLAGS) $(OFLAGS) $(CFLAGS_EXTRA) `dpkg-buildflags --get CFLAGS` `dpkg-buildflags --get CPPFLAGS`
++CFLAGS_DEBUG := -Iinclude $(WFLAGS) $(DBGFLAGS) $(CFLAGS_EXTRA) `dpkg-buildflags --get CFLAGS` `dpkg-buildflags --get CPPFLAGS`
+ 
+-LDFLAGS := -s
++LDFLAGS := -s `dpkg-buildflags --get LDFLAGS`
+ 
+ 
+ CORE_EXAMPLES_OBJ := $(addprefix examples/, $(notdir $(patsubst %.c, %.o, $(CORE_EXAMPLES))))
+Nur in libdumb-0.9.3: Makefile~.
