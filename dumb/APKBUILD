@@ -1,0 +1,50 @@
+# Maintainer: Antoni Aloy <aaloytorrens@gmail.com>
+pkgname=dumb
+pkgver=0.9.3
+pkgrel=0
+pkgdesc="Dynamic Universal Music Bibliotheque"
+url="http://dumb.sourceforge.net/"
+arch="all"
+license="GPL-2.0-only"
+makedepends="$depends_dev allegro4-dev"
+subpackages="$pkgname-dev"
+options="!check"  # No testsuite
+source="https://downloads.sourceforge.net/project/dumb/dumb/0.9.3/dumb-0.9.3.tar.gz
+	010_extra_flags.patch
+	100_CVE-2006-3668.patch
+	110-hardening.patch
+	config.txt
+	"
+
+build() {
+	install -Dm755 "$srcdir/config.txt" \
+	"$builddir/make/config.txt"
+	make
+}
+
+package() {
+	install -Dm644 "$builddir"/lib/unix/libdumb.a \
+	"$pkgdir"/usr/lib/libdumb.a
+	install -Dm644 "$builddir"/lib/unix/libdumbd.a \
+	"$pkgdir"/usr/lib/libdumbd.a
+	install -Dm755 "$builddir"/examples/dumbout \
+	"$pkgdir"/usr/bin/dumbout
+	install -Dm755 "$builddir"/examples/dumb2wav \
+	"$pkgdir"/usr/bin/dumb2wav
+	install -Dm644 "$builddir"/include/dumb.h \
+	"$pkgdir"/usr/include/dumb.h
+	install -Dm644 "$builddir"/lib/unix/libaldmb.a \
+	"$pkgdir"/usr/lib/libaldmb.a
+	install -Dm644 "$builddir"/lib/unix/libaldmd.a \
+	"$pkgdir"/usr/lib/libaldmd.a
+	install -Dm755 "$builddir"/examples/dumbplay \
+	"$pkgdir"/usr/bin/dumbplay
+	install -Dm644 "$builddir"/include/aldumb.h \
+	"$pkgdir"/usr/include/aldumb.h
+}
+
+sha512sums="9ecdea460858b7e6ad7ca2534ecb3581397e6c1fa904459affe19ce49f528e580e143b42b13413b292ae7b57901a8008e6a9ee3821824f6ff7914b136f75c658  dumb-0.9.3.tar.gz
+e61af87d63aa979762fcc14f041702bcbf45ccde604e9920deadee34d9f006103431ab652504291e5bea68c50336081d00f73406b93d8f73a8217ac38caee788  010_extra_flags.patch
+dd08e03e17e992686355f21519eb79ee7ffce6e3cefe8b56e210eda83b6c1205a41ce5daf54347111076881f688a063819960ec17b251473fec8794e6a334357  100_CVE-2006-3668.patch
+2622e91a6e1de9f98eaacc670338b7f8d67f04aa620c6e711d92fcb56618ff84ec3559eb6383d16c871f748a3f09e7e44dd38921391e3d6419f0c8ff05d888b2  110-hardening.patch
+21fb38965eb8b17cd60573c8f78b27b9b02835dc9bcc6d86f32f93938245dddf546fbdc9568b2eb2bfc17e833d04c419f56da5e51a3247a0ac757c7c31fbce92  config.txt"
