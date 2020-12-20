@@ -1,0 +1,18 @@
+--- a/configure.in
++++ b/configure.in
+@@ -113,13 +113,14 @@
+         FREETYPE_CONFIG=$freetype_prefix/bin/freetype-config
+      fi
+ fi
+-AC_PATH_PROG(FREETYPE_CONFIG, freetype-config, no)
++AC_PATH_TOOL(FREETYPE_CONFIG, pkg-config, no)
+ no_freetype=""
+ if test "$FREETYPE_CONFIG" = "no" ; then
+     AC_MSG_ERROR([
+ *** Unable to find FreeType2 library (http://www.freetype.org/)
+ ])
+ else
++    freetypeconf_args="freetype2"
+     CFLAGS="$CFLAGS `$FREETYPE_CONFIG $freetypeconf_args --cflags`"
+     LIBS="$LIBS `$FREETYPE_CONFIG $freetypeconf_args --libs`"
+ fi

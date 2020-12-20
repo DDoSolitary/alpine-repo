@@ -1,0 +1,46 @@
+# Maintainer: Antoni Aloy <aaloytorrens@gmail.com>
+pkgname=sdl_ttf
+pkgver=2.0.11
+pkgrel=0
+_pkgname=SDL_ttf
+pkgdesc="A library which allows you to use TrueType fonts in your SDL applications"
+url="http://www.libsdl.org/projects/SDL_ttf/"
+arch="all"
+license="Zlib"
+depends_dev="freetype-dev"
+makedepends="$depends_dev mesa-dev sdl-dev"
+subpackages="$pkgname-dev"
+options="!check"  # no test suite
+source="https://www.libsdl.org/projects/SDL_ttf/release/$_pkgname-$pkgver.tar.gz
+	01-link_libm_ftbfs_binutils-gold.patch
+	02-error-could-not-find-glyph-report.patch
+	03-fix-ttf-renderglyph-broken-shaded.patch
+	04-fix-ftbfs.patch
+	"
+
+builddir="$srcdir"/$_pkgname-$pkgver
+
+prepare() {
+	default_prepare
+	update_config_sub
+	update_config_guess
+}
+
+build() {
+	./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--disable-static
+	make
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="64e04d1cd77e525e0f2413ad928841e5d3d09d551c030fc577b50777116580e430cb272b2aeb6191dfcc464669cf2f7a5a50d10e7c75637a3b1e8c8fca7fc78b  SDL_ttf-2.0.11.tar.gz
+c5a3cdff73dc3f216a7785987b1938fdc05343f756c2fc17c0f7a9c229bb9f7f79f373266d40253368ed31091b758eae0de20c0a87eacdcece661beba3f29b20  01-link_libm_ftbfs_binutils-gold.patch
+0d82b99e57c8711d8d18abb30b75906012db8c661d36c077ceead7e5685d67357fafa641ba5fe7e5da13beaf3d59704ef4c99ad5cd8e15d17e6977ae7a9b32b5  02-error-could-not-find-glyph-report.patch
+e1852558f1b0c99eab956308be24f3261430a8f913a4c722d49cb9a89e580a6a918c1f60569698d3655c0a4da81c4725712be07261417175030c75efed75f86a  03-fix-ttf-renderglyph-broken-shaded.patch
+a0759c4bad8b5653fe195a7ada4452c434c94cbe14532e6ac8a9903a0b76276011a6e3825f1636b6d9f5c2fca2e30b54872c0e493d63c20f2881ffd636aa4ec1  04-fix-ftbfs.patch"
