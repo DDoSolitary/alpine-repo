@@ -1,0 +1,40 @@
+# Maintainer: Antoni Aloy <aaloytorrens@gmail.com>
+pkgname=kraptor
+pkgver=0.0.20040403
+pkgrel=0
+pkgdesc="Classic shoot 'em up scroller game"
+url="http://kraptor.sourceforge.net/"
+arch="all"
+license="GPL-2.0-only"
+makedepends="allegro4-dev dumb-dev"
+source="https://github.com/antonialoytorrens/kraptor/releases/download/20040403/kraptor-0.0.20040403.tar.gz
+	kraptor.desktop
+	kraptor.png
+	"
+
+build() {
+	./fix.sh linux
+	make
+}
+
+check() {
+	./fix.sh test
+}
+
+package() {
+	install -Dm755 "$builddir"/bin/kraptor_linux.bin \
+	"$pkgdir"/usr/bin/kraptor
+	install -Dm644 "$srcdir"/kraptor.desktop \
+	"$pkgdir"/usr/share/applications/kraptor.desktop
+	mkdir -p "$pkgdir"/usr/share/games/kraptor
+	cp "$builddir"/bin/*.dat \
+	"$pkgdir"/usr/share/games/kraptor/
+	install -Dm644 "$builddir"/bin/kraptor.cfg \
+	"$pkgdir"/etc/kraptor/kraptor.cfg
+	install -Dm644 "$srcdir"/kraptor.png \
+	"$pkgdir"/usr/share/icons/hicolor/128x128/apps/kraptor.png
+}
+
+sha512sums="560b43bfd44fc5525d887f18c030c60cbf4dc02e6139a1322e5c36589cc932818eb817d6388f80244f2c877432772f842c981dd41a5613e9d4bce074541efb1c  kraptor-0.0.20040403.tar.gz
+47587637412e51b7efc30c1111f73d3f6b4426fb5fe4396fa40ab43e2406deb00eb8b54c3ddc0af9a7f59c3450b1b2197e027f12089c06499001b5c12bb5f7d1  kraptor.desktop
+e6b9166033b5f342f63aa46a00252023f7d242c79d350d4f8e62215c227546da8ed365400e83335a451d9f9cab336185e471acfb8c74275c32e5249f1eefc4a6  kraptor.png"

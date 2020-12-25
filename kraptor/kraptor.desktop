@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Kraptor
+Type=Application
+Exec=kraptor
+Icon=kraptor
+Categories=ActionGame;Game;
+Keywords=game;action;plane;aircraft;explosions;shooter;scroller;
+Comment=classic shoot 'em up scroller game
+Comment[de]=klassisches Ballerspiel
