@@ -5,4 +5,4 @@ libcorkipset shadowsocks-libev
 libcork simple-obfs
 allegro4 dumb
 allegro4 kraptor
-dump kraptor
+dumb kraptor
