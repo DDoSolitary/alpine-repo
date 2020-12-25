@@ -1,0 +1,11 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -36,6 +36,8 @@
+ 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+ endif
+
++libSDL_ttf_la_LDFLAGS += -lm
++
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = SDL_ttf.pc
+ 

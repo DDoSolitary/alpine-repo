@@ -1,0 +1,58 @@
+--- a/SDL_ttf.c
++++ b/SDL_ttf.c
+@@ -1155,6 +1155,7 @@
+ 
+ 		error = Find_Glyph(font, c, CACHED_METRICS);
+ 		if ( error ) {
++			TTF_SetFTError("Couldn't find glyph", error);
+ 			return -1;
+ 		}
+ 		glyph = font->current;
+@@ -1364,6 +1365,7 @@
+ 
+ 		error = Find_Glyph(font, c, CACHED_METRICS|CACHED_BITMAP);
+ 		if( error ) {
++			TTF_SetFTError("Couldn't find glyph", error);
+ 			SDL_FreeSurface( textbuf );
+ 			return NULL;
+ 		}
+@@ -1438,6 +1440,7 @@
+ 	/* Get the glyph itself */
+ 	error = Find_Glyph(font, ch, CACHED_METRICS|CACHED_BITMAP);
+ 	if ( error ) {
++		TTF_SetFTError("Couldn't find glyph", error);
+ 		return(NULL);
+ 	}
+ 	glyph = font->current;
+@@ -1630,6 +1633,7 @@
+ 
+ 		error = Find_Glyph(font, c, CACHED_METRICS|CACHED_PIXMAP);
+ 		if( error ) {
++			TTF_SetFTError("Couldn't find glyph", error);
+ 			SDL_FreeSurface( textbuf );
+ 			return NULL;
+ 		}
+@@ -1711,6 +1715,7 @@
+ 	/* Get the glyph itself */
+ 	error = Find_Glyph(font, ch, CACHED_METRICS|CACHED_PIXMAP);
+ 	if( error ) {
++		TTF_SetFTError("Couldn't find glyph", error);
+ 		return NULL;
+ 	}
+ 	glyph = font->current;
+@@ -1887,6 +1892,7 @@
+ 		}
+ 		error = Find_Glyph(font, c, CACHED_METRICS|CACHED_PIXMAP);
+ 		if( error ) {
++			TTF_SetFTError("Couldn't find glyph", error);
+ 			SDL_FreeSurface( textbuf );
+ 			return NULL;
+ 		}
+@@ -1967,6 +1973,7 @@
+ 	/* Get the glyph itself */
+ 	error = Find_Glyph(font, ch, CACHED_METRICS|CACHED_PIXMAP);
+ 	if ( error ) {
++		TTF_SetFTError("Couldn't find glyph", error);
+ 		return(NULL);
+ 	}
+ 	glyph = font->current;
