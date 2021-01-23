@@ -15,6 +15,7 @@ builddir="$srcdir/$_pkgname-$pkgver"
 prepare() {
 	cd "$builddir"
 	patch -Np1 -i "$srcdir/werror.patch"
+	echo '#define ASSERT_SIZEOF(OBJECT, SIZE64, SIZE32, SIZEARM)' > src/static_assert.h
 	mkdir build
 }
 
