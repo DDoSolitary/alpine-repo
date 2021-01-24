@@ -2,19 +2,20 @@
 pkgname=pihole-FTL
 _pkgname=FTL
 pkgver=5.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="FTLDNS™ (pihole-FTL) provides an interactive API and also generates statistics for Pi-hole®'s Web interface."
 url="https://github.com/pi-hole/FTL"
 arch="all"
 license="EUPL-1.2"
-makedepends="cmake libidn-dev gmp-dev nettle-dev nettle-static readline-dev linux-headers libcap"
-source="$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz werror.patch"
+makedepends="cmake libidn-dev gmp-dev nettle-dev readline-dev linux-headers libcap"
+source="$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz werror.patch dynamic-link.patch"
 options="!check"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 prepare() {
 	cd "$builddir"
 	patch -Np1 -i "$srcdir/werror.patch"
+	patch -Np1 -i "$srcdir/dynamic-link.patch"
 	echo '#define ASSERT_SIZEOF(OBJECT, SIZE64, SIZE32, SIZEARM)' > src/static_assert.h
 	mkdir build
 }
@@ -32,4 +33,5 @@ package() {
 
 
 sha512sums="a136ea5a51a0afa77ce881a821b2b47885027592ded886799a477161d66d5b5efa7ccf8a212332b95001704107dedf0625e9149b708298857ae368fb703ebc73  FTL-5.5.1.tar.gz
-62ae0a18588e1aac35d8cb381dc7a7caf5f6902dcdc0014f0f75baa8a8f4fd28ee355e2417e922cf983cbbaeee4f204bc9e34d53693b5d0fa9ab8eb97218da05  werror.patch"
+62ae0a18588e1aac35d8cb381dc7a7caf5f6902dcdc0014f0f75baa8a8f4fd28ee355e2417e922cf983cbbaeee4f204bc9e34d53693b5d0fa9ab8eb97218da05  werror.patch
+817ee4fa831a2ea2737b55efd0eaf6e981020bfdf323d9a9549c744b7072306a1ba1481158bc27107083f54c085e85668ddfb01428815bbad12e403c29b5d00a  dynamic-link.patch"
