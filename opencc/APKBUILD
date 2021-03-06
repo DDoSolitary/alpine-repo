@@ -1,22 +1,17 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=opencc
 _pkgname=OpenCC
-pkgver=1.0.5
+pkgver=1.1.2
 _pkgver=ver.$pkgver
 pkgrel=0
 pkgdesc="A project for conversion between Traditional and Simplified Chinese"
 url="https://github.com/BYVoid/OpenCC"
 arch="all"
 license="Apache"
-makedepends="cmake doxygen python"
+makedepends="cmake doxygen python3"
 subpackages="$pkgname-dev $pkgname-doc"
-source="$_pkgname-$_pkgver.tar.gz::$url/archive/$_pkgver.tar.gz cmath.patch"
+source="$_pkgname-$_pkgver.tar.gz::$url/archive/$_pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$_pkgver"
-
-prepare() {
-	cd "$builddir"
-	patch -Np1 -i "$srcdir/cmath.patch"
-}
 
 build() {
 	cd "$builddir"
@@ -43,5 +38,4 @@ doc() {
 		mv "$pkgdir/usr/share/opencc/doc" "$subpkgdir/usr/share/opencc/"
 }
 
-sha512sums="3fbefbafe5c3c2491032158577ab97b5a3edf6ea98a03a7250deba082b72c3112ad4a3396d1a469936ec32e1d141f0a2236001c2891ac9c793add2b082596cc1  OpenCC-ver.1.0.5.tar.gz
-fb715fdb4ce4d3c3392df952f1547451db569106bce515a2c6f2941e07ef12b7304f963c7f2db2c65b34a80e356a41b49a183976c9c805ab1022077c8c569534  cmath.patch"
+sha512sums="56c84bc472b39eb0b23bac6df5aada2c2ed5fd2fbe653c1ae89d392ec0b74741a15de93c748883ec3c0779396e790a1197f6e3b267b524f111459d45daeb5d4b  OpenCC-ver.1.1.2.tar.gz"
