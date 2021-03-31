@@ -1,6 +1,6 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com> 
 pkgname=meek
-pkgver=0.34
+pkgver=0.35.0
 pkgrel=0
 pkgdesc='A pluggable transport proxy written in Go'
 url='https://trac.torproject.org/projects/tor/wiki/doc/meek'
@@ -16,7 +16,7 @@ prepare() {
 	export GOPATH="$srcdir/.gopath"
 	git clone https://git.torproject.org/pluggable-transports/meek.git
 	cd "$builddir"
-	git checkout "$pkgver"
+	git checkout "v$pkgver"
 	cd "$builddir/meek-server"
 	go get -d -v
 	cd "$builddir/meek-client"
