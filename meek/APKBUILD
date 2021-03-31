@@ -28,6 +28,7 @@ build() {
 	make all
 	cd "$builddir/meek-client"
 	make all
+	go clean -modcache
 }
 
 package() {

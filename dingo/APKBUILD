@@ -24,6 +24,7 @@ prepare() {
 build() {
 	cd "$builddir"
 	go build -o dingo -v
+	go clean -modcache
 }
 
 package() {
