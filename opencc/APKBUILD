@@ -3,12 +3,12 @@ pkgname=opencc
 _pkgname=OpenCC
 pkgver=1.1.2
 _pkgver=ver.$pkgver
-pkgrel=0
+pkgrel=1
 pkgdesc="A project for conversion between Traditional and Simplified Chinese"
 url="https://github.com/BYVoid/OpenCC"
 arch="all"
 license="Apache"
-makedepends="cmake doxygen python3"
+makedepends="cmake doxygen python3 gtest-dev rapidjson-dev tclap-dev"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$_pkgname-$_pkgver.tar.gz::$url/archive/$_pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$_pkgver"
@@ -21,7 +21,10 @@ build() {
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DBUILD_DOCUMENTATION=ON \
-		-DENABLE_GTEST=ON
+		-DENABLE_GTEST=ON \
+		-DUSE_SYSTEM_GTEST=ON \
+		-DUSE_SYSTEM_RAPIDJSON=ON \
+		-DUSE_SYSTEM_TCLAP=ON
 	make
 }
 
