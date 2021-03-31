@@ -15,6 +15,8 @@ builddir="$srcdir/$_pkgname-$_pkgver"
 
 build() {
 	cd "$builddir"
+	export CFLAGS="${CFLAGS//-fomit-frame-pointer/}"
+	export CXXFLAGS="${CXXFLAGS//-fomit-frame-pointer/}"
 	cmake . \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
