@@ -67,7 +67,7 @@ EXPOSE 22
 ENV ARCH=$ARCH
 ENV QEMU_MEM=$QEMU_MEM
 CMD eval $(./configure.sh $ARCH) && \
-	qemu-system-$QEMU_ARCH $QEMU_ARGS -m $QEMU_MEM \
+	qemu-system-$QEMU_ARCH $QEMU_ARGS -m $QEMU_MEM -smp $(nproc) \
 		$([ -n "$FW_URL" ] && echo -bios QEMU_EFI.fd) \
 		-drive id=vda,if=none,file=disk.qcow2 \
 		-device virtio-blk-$QEMU_DEV_SUFFIX,drive=vda \
