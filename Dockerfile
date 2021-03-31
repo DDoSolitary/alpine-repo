@@ -13,7 +13,7 @@ RUN eval $(./configure.sh $ARCH) && \
 	ssh-keygen -t ed25519 -N "" -C "" -f id && \
 	qemu-img create -f qcow2 disk.qcow2 20G && \
 	(python3 -m http.server -b 127.0.0.1 8000 &) && \
-	(qemu-system-$QEMU_ARCH $QEMU_ARGS -m $QEMU_MEM \
+	(qemu-system-$QEMU_ARCH $QEMU_ARGS -m $QEMU_MEM -smp $QEMU_SMP \
 		-kernel vmlinuz-$KERNEL_FLAVOR -initrd initramfs-$KERNEL_FLAVOR \
 		-append "console=$QEMU_CONSOLE_DEV ip=dhcp \
 			alpine_repo=http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
@@ -67,7 +67,7 @@ EXPOSE 22
 ENV ARCH=$ARCH
 ENV QEMU_MEM=$QEMU_MEM
 CMD eval $(./configure.sh $ARCH) && \
-	qemu-system-$QEMU_ARCH $QEMU_ARGS -m $QEMU_MEM -smp $(nproc) \
+	qemu-system-$QEMU_ARCH $QEMU_ARGS -m $QEMU_MEM -smp $QEMU_SMP \
 		$([ -n "$FW_URL" ] && echo -bios QEMU_EFI.fd) \
 		-drive id=vda,if=none,file=disk.qcow2 \
 		-device virtio-blk-$QEMU_DEV_SUFFIX,drive=vda \

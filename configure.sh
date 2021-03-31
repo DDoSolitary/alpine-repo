@@ -20,6 +20,7 @@ aarch64)
 	echo QEMU_ARGS=\"-M virt -cpu cortex-a57\"
 	echo QEMU_CONSOLE_DEV=ttyAMA0
 	echo QEMU_DEV_SUFFIX=pci
+	max_cpus=8
 	;;
 armv7)
 	echo KERNEL_FLAVOR=lts
@@ -28,6 +29,7 @@ armv7)
 	echo QEMU_ARGS=\"-M virt -cpu cortex-a15\"
 	echo QEMU_CONSOLE_DEV=ttyAMA0
 	echo QEMU_DEV_SUFFIX=device
+	max_cpus=8
 	;;
 armhf)
 	echo KERNEL_FLAVOR=rpi2
@@ -36,6 +38,7 @@ armhf)
 	echo QEMU_ARGS=\"-M virt -cpu cortex-a15\"
 	echo QEMU_CONSOLE_DEV=ttyAMA0
 	echo QEMU_DEV_SUFFIX=device
+	max_cpus=8
 	;;
 ppc64le)
 	echo KERNEL_FLAVOR=lts
@@ -53,3 +56,9 @@ s390x)
 	echo Unsupported architechture. >&2
 	exit 1
 esac
+
+smp_cpus=$(nproc)
+if [ -n "$max_cpus" ] && [ "$smp_cpus" -gt "$max_cpus" ]; then
+	smp_cpus=$max_cpus
+fi
+echo QEMU_SMP=$smp_cpus
