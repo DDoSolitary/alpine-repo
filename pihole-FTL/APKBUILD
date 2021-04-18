@@ -1,7 +1,7 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=pihole-FTL
 _pkgname=FTL
-pkgver=5.7
+pkgver=5.8
 pkgrel=1
 pkgdesc="FTLDNS™ (pihole-FTL) provides an interactive API and also generates statistics for Pi-hole®'s Web interface."
 url="https://github.com/pi-hole/FTL"
@@ -32,6 +32,6 @@ package() {
 }
 
 
-sha512sums="6c7ccc301580274b0cbe3b00030bf66b4301903290b296b7e1c456c6063f975cbf1cace0843014dcbf57410968068cc20c68071d814e73d70275c7092b01fcc1  FTL-5.7.tar.gz
+sha512sums="74f2ebd5c047e98d4a25ad674120124ebc6ab362725adc1e8bee01d54183c7c10f29fed4efc9d3eccb1b42a71e8f2d7de88d91040050e55a23cf98c785177ad7  FTL-5.8.tar.gz
 62ae0a18588e1aac35d8cb381dc7a7caf5f6902dcdc0014f0f75baa8a8f4fd28ee355e2417e922cf983cbbaeee4f204bc9e34d53693b5d0fa9ab8eb97218da05  werror.patch
 817ee4fa831a2ea2737b55efd0eaf6e981020bfdf323d9a9549c744b7072306a1ba1481158bc27107083f54c085e85668ddfb01428815bbad12e403c29b5d00a  dynamic-link.patch"
