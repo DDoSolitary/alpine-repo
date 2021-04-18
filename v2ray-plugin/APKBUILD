@@ -8,7 +8,7 @@ arch="all"
 license="MIT"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::https://github.com/shadowsocks/$pkgname/archive/v$pkgver.tar.gz"
-options="!check"
+options="!check chmod-clean"
 builddir="$srcdir/$pkgname-$pkgver"
 
 prepare() {
@@ -22,7 +22,6 @@ prepare() {
 build() {
 	cd "$builddir"
 	go build -o v2ray-plugin -v
-	go clean -modcache
 }
 
 package() {

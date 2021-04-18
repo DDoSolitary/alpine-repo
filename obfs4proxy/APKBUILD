@@ -9,7 +9,7 @@ license="BSD-3-Clause"
 makedepends="go"
 subpackages="$pkgname-doc"
 source="$url/archive/$pkgname-$pkgver.tar.gz"
-options="!check"
+options="!check chmod-clean"
 builddir="$srcdir/obfs4-$pkgname-$pkgver/$pkgname"
 
 prepare() {
@@ -23,7 +23,6 @@ prepare() {
 build() {
 	cd "$builddir"
 	go build -o obfs4proxy -v
-	go clean -modcache
 }
 
 package() {

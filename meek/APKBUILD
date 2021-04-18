@@ -7,7 +7,7 @@ url='https://trac.torproject.org/projects/tor/wiki/doc/meek'
 arch="all"
 license="CC0 1.0 Universal"
 makedepends="go"
-options="!check"
+options="!check chmod-clean"
 builddir="$srcdir/$pkgname"
 
 prepare() {
@@ -28,7 +28,6 @@ build() {
 	make all
 	cd "$builddir/meek-client"
 	make all
-	go clean -modcache
 }
 
 package() {
