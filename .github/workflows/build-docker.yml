@@ -25,6 +25,12 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - run: |
-          docker build -t ddosolitary/alpine-builder:${{ matrix.arch }} --build-arg ARCH=${{ matrix.arch }} --build-arg ALPINE_HOST=${{ matrix.host }} .
-          docker login -u ddosolitary -p "${{ secrets.DOCKER_PWD }}"
-          docker push ddosolitary/alpine-builder:${{ matrix.arch }}
+          docker build \
+              -t quay.io/ddosolitary/alpine-builder:${{ matrix.arch }} \
+              --build-arg ARCH=${{ matrix.arch }} \
+              --build-arg ALPINE_HOST=${{ matrix.host }} .
+          docker login \
+              -u ddosolitary+alpine_repo_builder \
+              -p "${{ secrets.DOCKER_PWD }}" \
+              quay.io
+          docker push quay.io/ddosolitary/alpine-builder:${{ matrix.arch }}
