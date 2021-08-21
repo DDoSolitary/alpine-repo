@@ -19,6 +19,7 @@ jobs:
             host: edge
           - arch: ppc64le
             host: edge
+            netboot_version: -20210212
           - arch: s390x
             host: edge
     runs-on: ubuntu-18.04
@@ -28,7 +29,8 @@ jobs:
           docker build \
               -t quay.io/ddosolitary/alpine-builder:${{ matrix.arch }} \
               --build-arg ARCH=${{ matrix.arch }} \
-              --build-arg ALPINE_HOST=${{ matrix.host }} .
+              --build-arg ALPINE_HOST=${{ matrix.host }} \
+              --build-arg NETBOOT_VERSION=${{ matrix.netboot_version }} .
           docker login \
               -u ddosolitary+alpine_repo_builder \
               -p "${{ secrets.DOCKER_PWD }}" \
