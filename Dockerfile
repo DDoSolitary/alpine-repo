@@ -5,6 +5,7 @@ ARG QEMU_MEM=1G
 ARG NETBOOT_VERSION
 ADD configure.sh /
 RUN eval $(./configure.sh $ARCH) && \
+	sed -i "s/^https:/http:/" /etc/apk/repositories && \
 	apk upgrade && \
 	apk add qemu-system-$QEMU_ARCH qemu-img netcat-openbsd python3 openssh && \
 	dl_url=http://dl-cdn.alpinelinux.org/alpine/edge/releases/$ARCH/netboot$NETBOOT_VERSION && \
