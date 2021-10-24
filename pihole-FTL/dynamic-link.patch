@@ -1,15 +1,15 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index e2d6fac..683f260 100644
+index 3cf1ec2f..b5c41c5a 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -189,10 +189,10 @@ set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+@@ -191,10 +191,10 @@ set(THREADS_PREFER_PTHREAD_FLAG TRUE)
  find_package(Threads REQUIRED)
  
  # for DNSSEC we need the nettle (+ hogweed) crypto and the gmp math libraries
--find_library(LIBHOGWEED libhogweed${CMAKE_STATIC_LIBRARY_SUFFIX})
--find_library(LIBGMP libgmp${CMAKE_STATIC_LIBRARY_SUFFIX})
--find_library(LIBNETTLE libnettle${CMAKE_STATIC_LIBRARY_SUFFIX})
--find_library(LIBIDN libidn${CMAKE_STATIC_LIBRARY_SUFFIX})
+-find_library(LIBHOGWEED NAMES libhogweed${CMAKE_STATIC_LIBRARY_SUFFIX} hogweed)
+-find_library(LIBGMP NAMES libgmp${CMAKE_STATIC_LIBRARY_SUFFIX} gmp)
+-find_library(LIBNETTLE NAMES libnettle${CMAKE_STATIC_LIBRARY_SUFFIX} nettle)
+-find_library(LIBIDN NAMES libidn${CMAKE_STATIC_LIBRARY_SUFFIX} idn)
 +find_library(LIBHOGWEED hogweed)
 +find_library(LIBGMP gmp)
 +find_library(LIBNETTLE nettle)
@@ -17,26 +17,27 @@ index e2d6fac..683f260 100644
  
  target_link_libraries(pihole-FTL rt Threads::Threads ${LIBHOGWEED} ${LIBGMP} ${LIBNETTLE} ${LIBIDN})
  
-@@ -201,14 +201,12 @@ if(LUA_DL STREQUAL "true")
+@@ -203,14 +203,13 @@ if(LUA_DL STREQUAL "true")
      target_link_libraries(pihole-FTL ${LIBDL})
  endif()
  
--find_library(LIBREADLINE libreadline${CMAKE_STATIC_LIBRARY_SUFFIX})
--find_library(LIBHISTORY libhistory${CMAKE_STATIC_LIBRARY_SUFFIX})
--find_library(LIBTERMCAP libtermcap${CMAKE_STATIC_LIBRARY_SUFFIX})
+-find_library(LIBREADLINE NAMES libreadline${CMAKE_STATIC_LIBRARY_SUFFIX} readline)
+-find_library(LIBHISTORY NAMES libhistory${CMAKE_STATIC_LIBRARY_SUFFIX} history)
+-find_library(LIBTERMCAP NAMES libtermcap${CMAKE_STATIC_LIBRARY_SUFFIX} termcap)
 -if(LIBREADLINE AND LIBHISTORY AND LIBTERMCAP)
 +find_library(LIBREADLINE readline)
-+if(LIBREADLINE)
++find_library(LIBHISTORY history)
++if(LIBREADLINE AND LIBHISTORY)
      message(STATUS "Building FTL with readline support: YES")
      target_compile_definitions(FTL PRIVATE LUA_USE_READLINE)
      target_compile_definitions(pihole-FTL PRIVATE LUA_USE_READLINE)
 -    target_link_libraries(pihole-FTL ${LIBREADLINE} ${LIBHISTORY} ${LIBTERMCAP})
-+    target_link_libraries(pihole-FTL ${LIBREADLINE})
++    target_link_libraries(pihole-FTL ${LIBREADLINE} ${LIBHISTORY})
  else()
      message(STATUS "Building FTL with readline support: NO")
  endif()
 diff --git a/src/lua/CMakeLists.txt b/src/lua/CMakeLists.txt
-index 83dff2e..b2207b4 100644
+index 83dff2ef..b1335381 100644
 --- a/src/lua/CMakeLists.txt
 +++ b/src/lua/CMakeLists.txt
 @@ -77,7 +77,7 @@ if(LUA_DL STREQUAL "true")
@@ -44,7 +45,7 @@ index 83dff2e..b2207b4 100644
  endif()
  
 -if(LIBREADLINE AND LIBHISTORY AND LIBTERMCAP)
-+if(LIBREADLINE)
++if(LIBREADLINE AND LIBHISTORY)
      message(STATUS "Embedded LUA will use readline for history: YES")
      target_compile_definitions(lua PRIVATE LUA_USE_READLINE)
  else()
