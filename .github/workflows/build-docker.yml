@@ -10,9 +10,9 @@ jobs:
         arch: [x86_64, x86, aarch64, armv7, ppc64le, s390x]
         include:
           - arch: x86_64
-            host: 3.14
+            host: edge
           - arch: x86
-            host: 3.14
+            host: edge
           - arch: aarch64
             host: edge
           - arch: armv7
