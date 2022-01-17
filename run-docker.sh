@@ -8,7 +8,7 @@ if [ "$CI" == "true" ]; then
 	ssh-add ~/.ssh/id_ed25519
 fi
 
-docker run -t -p 2200:22 ddosolitary/alpine-builder:$ARCH &
+docker run -t -p 2200:22 quay.io/ddosolitary/alpine-builder:$ARCH &
 ssh="ssh -p 2200 \
 	-o UserKnownHostsFile=/dev/null \
 	-o StrictHostKeyChecking=no \
