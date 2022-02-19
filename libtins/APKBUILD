@@ -1,6 +1,6 @@
 # Maintainer: DDoSolitary <DDoSolitary@gmail.com>
 pkgname=libtins
-pkgver=4.2
+pkgver=4.4
 pkgrel=0
 pkgdesc="High-level, multiplatform C++ network packet sniffing and crafting library"
 url="https://github.com/mfontanini/libtins"
@@ -8,7 +8,6 @@ arch="all"
 license="BSD-2-Clause"
 makedepends="cmake libpcap-dev libressl-dev boost-dev"
 subpackages="$pkgname-dev"
-source="https://github.com/mfontanini/libtins/pull/333.patch"
 builddir="$srcdir/$pkgname/build"
 
 prepare() {
@@ -17,7 +16,6 @@ prepare() {
 	cd "$pkgname"
 	git checkout "v$pkgver"
 	git submodule update --init --recursive
-	git apply "$srcdir/333.patch"
 	mkdir build
 }
 
@@ -36,5 +34,3 @@ package() {
 	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 }
-
-sha512sums="bdb7aa9c90bf09aa9806b4df6e5e0b159ec13b39aefc2cac846874cca8467b2839a64829aa575d814e1e9cad49ff6cf34604992484722f844cc68292c347c454  333.patch"
